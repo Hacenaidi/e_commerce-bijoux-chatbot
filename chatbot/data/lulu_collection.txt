@@ -1,0 +1,15 @@
+Product: Jackets
+Color: fef
+Price: 1500.000
+Description: fesfezf
+---
+Product: Jackets
+Color: brown
+Price: 1500.000
+Description: Women jacket
+---
+Product: nour
+Color: brown
+Price: 1500.000
+Description: Women jacket
+---

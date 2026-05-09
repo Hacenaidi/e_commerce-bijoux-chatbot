@@ -1,0 +1,58 @@
+# Python - Chatbot
+chatbot/__pycache__/
+chatbot/.venv/
+chatbot/.env
+chatbot/venv/
+chatbot/*.pyc
+chatbot/node_modules/
+
+# PHP - MVC
+mvc/config_local.php
+mvc/*.log
+
+# IDE & OS
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Database
+*.sql.backup
+*.db
+*.sqlite
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Temporary files
+*.tmp
+*.temp
+*~
+*.bak
+
+# Logs
+logs/
+*.log
+
+# Node
+node_modules/
+package-lock.json
+npm-debug.log
+
+# Cache
+.cache/
+temp/
+tmp/
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db

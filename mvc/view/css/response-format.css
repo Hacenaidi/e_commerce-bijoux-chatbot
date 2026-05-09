@@ -1,0 +1,249 @@
+/* ================================
+   FORMATTED CONTENT STYLES
+   ================================ */
+
+/* List Formatting */
+.message-content ul {
+    margin: 12px 0 12px 20px;
+    padding: 0;
+    list-style-type: disc;
+}
+
+.message-content ol {
+    margin: 12px 0 12px 25px;
+    padding: 0;
+    list-style-type: decimal;
+}
+
+.message-content li {
+    margin: 8px 0;
+    line-height: 1.7;
+    color: #333;
+}
+
+.bot-message .message-content li {
+    color: #333;
+}
+
+.message-content strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.message-content em {
+    color: #764ba2;
+    font-style: italic;
+}
+
+/* Section Formatting */
+.response-section {
+    margin: 12px 0;
+    padding: 12px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(158, 127, 234, 0.08) 100%);
+    border-left: 4px solid #667eea;
+    border-radius: 4px;
+}
+
+.response-section strong {
+    display: block;
+    color: #667eea;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+
+/* Product List */
+.product-list {
+    list-style-type: decimal;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.product-list li {
+    margin: 8px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.product-list li:last-child {
+    border-bottom: none;
+}
+
+/* Price Display */
+.price-info {
+    background: #f0f4ff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin: 5px 0;
+    font-weight: 500;
+    color: #667eea;
+}
+
+/* Link Styling */
+.message-content a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dotted #667eea;
+    transition: all 0.2s;
+}
+
+.message-content a:hover {
+    color: #764ba2;
+    border-bottom-color: #764ba2;
+}
+
+/* Code/Code Block */
+.message-content code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Monaco', 'Courier New', monospace;
+    font-size: 13px;
+    color: #d63384;
+}
+
+/* Blockquote */
+.message-content blockquote {
+    border-left: 4px solid #667eea;
+    padding-left: 15px;
+    margin: 10px 0;
+    color: #666;
+    font-style: italic;
+}
+
+/* Table Styling (if needed) */
+.message-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.message-content th {
+    background: #667eea;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+.message-content td {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.message-content tr:hover {
+    background: #f9f9f9;
+}
+
+/* Divider */
+.response-divider {
+    margin: 15px 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #667eea, transparent);
+}
+
+/* Emoji Support */
+.emoji {
+    margin: 0 3px;
+    font-size: 1.1em;
+}
+
+/* Icon with Text */
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    margin: 10px 0;
+}
+
+.info-box-icon {
+    margin-right: 10px;
+    font-size: 1.3em;
+    min-width: 30px;
+}
+
+.info-box-content {
+    flex: 1;
+}
+
+/* Numbered List Alternative */
+.response-list {
+    counter-reset: item;
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.response-list li {
+    counter-increment: item;
+    margin: 10px 0;
+    padding-left: 30px;
+    position: relative;
+}
+
+.response-list li:before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Highlight Text */
+.highlight {
+    background: linear-gradient(120deg, #fff5e6 0%, #ffe0b2 100%);
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+/* Success/Info/Warning Messages */
+.message-success {
+    color: #28a745;
+}
+
+.message-info {
+    color: #17a2b8;
+}
+
+.message-warning {
+    color: #ffc107;
+}
+
+.message-error {
+    color: #dc3545;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .message-content {
+        font-size: 14px;
+    }
+
+    .message-content li {
+        margin: 6px 0;
+    }
+
+    .response-section {
+        padding: 10px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .message-content ul,
+    .message-content ol {
+        page-break-inside: avoid;
+    }
+
+    .message-content li {
+        page-break-inside: avoid;
+    }
+}
