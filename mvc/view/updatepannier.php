@@ -22,7 +22,7 @@ $pro = $controller->produit($pannier[2])->fetch();
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>ThewayShop </title>
+    <title>Glowear </title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -51,44 +51,52 @@ $pro = $controller->produit($pannier[2])->fetch();
 
     <!-- Start Main Top -->
     <div class="main-top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="text-slid-box">
-                        <div id="offer-box" class="carouselTicker">
-                            <ul class="offer-box">
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 10%! Shop Now Man
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 50% - 80% off on Fashion
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT20
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 10%! Shop Now Man
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 50% - 80% off on Fashion
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT20
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                                </li>
-                            </ul>
-                        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="text-slid-box">
+                    <div id="offer-box" class="carouselTicker">
+                        <ul class="offer-box">
+
+                            <li>
+                                <i class="fas fa-gem"></i> Handmade with love, made to shine ✨
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Elegant bijoux for your everyday glow 💖
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Limited pieces – once gone, gone forever 💎
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Discover your signature sparkle 🌸
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Glowear exclusive jewelry collection ✨
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Small details, big elegance 💫
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Wear your glow every day 🌙
+                            </li>
+
+                            <li>
+                                <i class="fas fa-gem"></i> Crafted to make you shine 💝
+                            </li>
+
+                        </ul>
                     </div>
                 </div>
-                
             </div>
         </div>
     </div>
+</div>
     <!-- End Main Top -->
 
     <!-- Start Main Top -->
@@ -101,7 +109,9 @@ $pro = $controller->produit($pannier[2])->fetch();
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
-                    <a class="navbar-brand" href="index.php"><img src="images/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="index.php">
+                        <img src="images/logog.png" class="logo" alt="" width="230">                
+                    </a>
                 </div>
                 <!-- End Header Navigation -->
 
@@ -401,8 +411,8 @@ $pro = $controller->produit($pannier[2])->fetch();
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
-                            <h4>About ThewayShop</h4>
-                            <p> At thewayshop, we're passionate about providing a seamless and enjoyable shopping experience for our customers. Our platform is more than just a marketplace; it's a destination where quality meets convenience. Driven by a commitment to excellence, we curate a diverse collection of products that cater to your needs, from trendy fashion pieces to must-have gadgets and beyond.
+                            <h4>About Glowear</h4>
+                            <p> At Glowear, we're passionate about providing a seamless and enjoyable shopping experience for our customers. Our platform is more than just a marketplace; it's a destination where quality meets convenience. Driven by a commitment to excellence, we curate a diverse collection of products that cater to your needs, from trendy fashion pieces to must-have gadgets and beyond.
                                 </p>
                             <ul>
                                 <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
@@ -439,7 +449,7 @@ $pro = $controller->produit($pannier[2])->fetch();
                                     <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+21656725104">+21656725104</a></p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:thewayshop@gmail.com">thewayshop@gmail.com</a></p>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:Glowear@gmail.com">Glowear@gmail.com</a></p>
                                 </li>
                             </ul>
                         </div>

@@ -13,6 +13,13 @@ function authenticateClient($mail, $password) {
     return $res;
 }
 
+public function findByEmail($email) {
+    $query = "SELECT * FROM client WHERE email = ?";
+    $res = $this->pdo->prepare($query);
+    $res->execute([$email]);
+    return $res;
+}
+
 function listAllClient($search = '') {
     if ($search !== '') {
         $query = "select * from client where nom like :search order by id desc";

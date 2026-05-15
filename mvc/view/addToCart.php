@@ -21,7 +21,8 @@ if(isset($_SESSION["id"])){
         exit;
     }
 
-    $total_prod = $prix * $quantity;
+$prix = floatval(preg_replace('/[^\d.]/', '', $_POST["prix"]));
+$total_prod = $prix * $quantity;
     $pannier = new Pannier('', $id, $ref, $quantity, $taille, $total_prod);
 
     $pannierC = new PannierController();

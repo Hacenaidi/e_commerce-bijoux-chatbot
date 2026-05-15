@@ -6,6 +6,11 @@ function __construct() {
 parent::__construct();
 }
 function listpannier($id){
+    if ($id === null) {
+        $res = $this->pdo->prepare("SELECT * FROM pannier WHERE 1=0"); // empty result set
+        $res->execute();
+        return $res;
+    }
     $query = "select * from pannier where id = $id";
     $res = $this->pdo->prepare($query);
     $res->execute();

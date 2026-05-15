@@ -9,7 +9,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="chatbot-wrapper">
                     <div class="chatbot-header">
-                        <h2>💬 Assistant Bijoux</h2>
+                        <h2>💬 Jewelry Assistant</h2>
                         <p>Posez vos questions sur nos collections, prix et livraison</p>
                     </div>
 
@@ -36,7 +36,7 @@
                                 >
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit">
-                                        <i class="fa fa-send"></i> Envoyer
+                                        <i class="fa fa-send"></i> Send
                                     </button>
                                 </span>
                             </div>

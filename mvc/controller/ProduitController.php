@@ -29,16 +29,38 @@ function getAllnom()
     $res->execute();
     return $res; 
 }
-function listproduit($nom, $collectionId = ""){
-    if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.collection_id = c.id WHERE p.nom = ?";
-    } else {
-        $query = "SELECT p.* FROM produit p WHERE p.nom = ?";
-    }
-    $params = array($nom);
 
-    if ($collectionId !== "" && $this->hasProduitColumn('collection_id')) {
-        $query .= " AND p.collection_id = ?";
+
+public function listAllProduits() {
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
+    $res = $this->pdo->prepare($query);
+    $res->execute();
+    return $res;
+}
+
+function listproduit($collectionId = "", $collectionFilter = "") {
+    // $collectionId is the collection's id (e.g., 2 for "Necklaces")
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
+    $params = array();
+
+    if ($collectionId !== "") {
+        $query .= " WHERE p.id_collection = ?";
+        $params[] = $collectionId;
+    }
+
+    // If you want to add more filters, add them here
+
+    $res = $this->pdo->prepare($query);
+    $res->execute($params);
+    return $res;
+}
+
+function listproduitparprix($min, $max, $collectionId = "") {
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.prix BETWEEN ? AND ?";
+    $params = array($min, $max);
+
+    if ($collectionId !== "") {
+        $query .= " AND p.id_collection = ?";
         $params[] = $collectionId;
     }
 
@@ -46,28 +68,10 @@ function listproduit($nom, $collectionId = ""){
     $res->execute($params);
     return $res;
 }
-function listproduitparprix($nom,$min,$max,$collectionId = ""){
-    if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.collection_id = c.id WHERE p.nom = ? AND p.prix BETWEEN ? AND ?";
-    } else {
-        $query = "SELECT p.* FROM produit p WHERE p.nom = ? AND p.prix BETWEEN ? AND ?";
-    }
-    $params = array($nom, $min, $max);
-
-    if ($collectionId !== "" && $this->hasProduitColumn('collection_id')) {
-        $query .= " AND p.collection_id = ?";
-        $params[] = $collectionId;
-    }
-
-    $res = $this->pdo->prepare($query);
-    $res->execute($params);
-    return $res;
-}
-
 
 function produit($id){
     if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.collection_id = c.id WHERE p.ref = ?";
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.ref = ?";
     } else {
         $query = "SELECT p.* FROM produit p WHERE p.ref = ?";
     }
@@ -75,9 +79,16 @@ function produit($id){
     $res->execute(array($id));
     return $res; 
 }
+
+public function produitByName($name) {
+    $query = "SELECT * FROM produit WHERE nom = ?";
+    $res = $this->pdo->prepare($query);
+    $res->execute([$name]);
+    return $res->fetch(PDO::FETCH_ASSOC);
+}
 function listAllProduit(){
     if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.collection_id = c.id";
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
     } else {
         $query = "SELECT p.* FROM produit p";
     }

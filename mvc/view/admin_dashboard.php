@@ -94,8 +94,7 @@ foreach ($orders as $orderRow) {
         <aside class="sidebar">
             <div class="brand-block">
                 <span class="brand-kicker">Admin panel</span>
-                <h2>ShoppingOnline</h2>
-                <p>Navigation rapide et vue synthétique de la boutique.</p>
+                <h2>Glowear</h2>
             </div>
 
             <nav class="sidebar-nav">
@@ -108,7 +107,6 @@ foreach ($orders as $orderRow) {
             </nav>
 
             <div class="sidebar-footer">
-                <p>Utilise la navigation pour basculer entre les sections sans perdre le contexte.</p>
             </div>
         </aside>
 
