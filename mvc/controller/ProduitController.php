@@ -1,19 +1,37 @@
 <?php
-include_once('../model/Produit.php') ;
-include_once('../database/config.php');
-include_once('ChatDataController.php');
-include_once('StockController.php');
+$prodModel = __DIR__ . '../../model/Produit.php';
+if (file_exists($prodModel)) {
+    include_once($prodModel);
+}
+$dbConfig = __DIR__ . '../../database/config.php';
+if (file_exists($dbConfig)) {
+    include_once($dbConfig);
+}
+$chatDataCtrl = __DIR__ . '/ChatDataController.php';
+if (file_exists($chatDataCtrl)) {
+    include_once($chatDataCtrl);
+}
+$stockCtrl = __DIR__ . '/StockController.php';
+if (file_exists($stockCtrl)) {
+    include_once($stockCtrl);
+}
+
 class ProduitController extends Connexion{
 function __construct() {
 parent::__construct();
 }
 
-private function hasProduitColumn($columnName) {
-    $query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'produit' AND COLUMN_NAME = ?";
-    $res = $this->pdo->prepare($query);
-    $res->execute(array($columnName));
-    return ((int) $res->fetchColumn() > 0);
-}
+    private function getProduitCollectionColumn() {
+        $query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'produit' AND COLUMN_NAME = ?";
+        foreach (array('id_collection', 'collection_id') as $col) {
+            $res = $this->pdo->prepare($query);
+            $res->execute(array($col));
+            if (((int) $res->fetchColumn()) > 0) {
+                return $col;
+            }
+        }
+        return null;
+    }
 
 function listCollections() {
     $query = "SELECT id, nom FROM collection ORDER BY nom ASC";
@@ -32,7 +50,12 @@ function getAllnom()
 
 
 public function listAllProduits() {
-    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
+    $collectionColumn = $this->getProduitCollectionColumn();
+    if ($collectionColumn) {
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
+    } else {
+        $query = "SELECT p.* FROM produit p";
+    }
     $res = $this->pdo->prepare($query);
     $res->execute();
     return $res;
@@ -40,11 +63,16 @@ public function listAllProduits() {
 
 function listproduit($collectionId = "", $collectionFilter = "") {
     // $collectionId is the collection's id (e.g., 2 for "Necklaces")
-    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
+    $collectionColumn = $this->getProduitCollectionColumn();
+    if ($collectionColumn) {
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
+    } else {
+        $query = "SELECT p.* FROM produit p";
+    }
     $params = array();
 
-    if ($collectionId !== "") {
-        $query .= " WHERE p.id_collection = ?";
+    if ($collectionId !== "" && $collectionColumn) {
+        $query .= " WHERE p." . $collectionColumn . " = ?";
         $params[] = $collectionId;
     }
 
@@ -56,11 +84,16 @@ function listproduit($collectionId = "", $collectionFilter = "") {
 }
 
 function listproduitparprix($min, $max, $collectionId = "") {
-    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.prix BETWEEN ? AND ?";
+    $collectionColumn = $this->getProduitCollectionColumn();
+    if ($collectionColumn) {
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id WHERE p.prix BETWEEN ? AND ?";
+    } else {
+        $query = "SELECT p.* FROM produit p WHERE p.prix BETWEEN ? AND ?";
+    }
     $params = array($min, $max);
 
-    if ($collectionId !== "") {
-        $query .= " AND p.id_collection = ?";
+    if ($collectionId !== "" && $collectionColumn) {
+        $query .= " AND p." . $collectionColumn . " = ?";
         $params[] = $collectionId;
     }
 
@@ -70,8 +103,9 @@ function listproduitparprix($min, $max, $collectionId = "") {
 }
 
 function produit($id){
-    if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.ref = ?";
+    $collectionColumn = $this->getProduitCollectionColumn();
+    if ($collectionColumn) {
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id WHERE p.ref = ?";
     } else {
         $query = "SELECT p.* FROM produit p WHERE p.ref = ?";
     }
@@ -87,8 +121,9 @@ public function produitByName($name) {
     return $res->fetch(PDO::FETCH_ASSOC);
 }
 function listAllProduit(){
-    if ($this->hasProduitColumn('collection_id')) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
+    $collectionColumn = $this->getProduitCollectionColumn();
+    if ($collectionColumn) {
+        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
     } else {
         $query = "SELECT p.* FROM produit p";
     }
@@ -105,8 +140,9 @@ function createProduit(Produit $produit, $stockTaille = null, $stockQuantite = n
         $image = $produit->getImage();
         $collectionId = $produit->getCollection();
 
-        if ($this->hasProduitColumn('collection_id')) {
-            $query = "INSERT INTO produit (`nom`, `couleur`, `prix`, `description`, `status`, `image`, `collection_id`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $collectionColumn = $this->getProduitCollectionColumn();
+        if ($collectionColumn) {
+            $query = "INSERT INTO produit (`nom`, `couleur`, `prix`, `description`, `status`, `image`, `" . $collectionColumn . "`) VALUES (?, ?, ?, ?, ?, ?, ?)";
             $res = $this->pdo->prepare($query);
             $res->execute(array($nom, $couleur, $prix, $description, $status, $image, $collectionId !== '' ? $collectionId : null));
         } else {
@@ -144,8 +180,9 @@ function createProduit(Produit $produit, $stockTaille = null, $stockQuantite = n
         $id = $produit->getRef();
         $collectionId = $produit->getCollection();
         
-        if ($this->hasProduitColumn('collection_id')) {
-            $query = "UPDATE produit SET nom = ?, prix = ?, couleur = ?, description = ?, status = ?, collection_id = ? WHERE ref = ?";
+        $collectionColumn = $this->getProduitCollectionColumn();
+        if ($collectionColumn) {
+            $query = "UPDATE produit SET nom = ?, prix = ?, couleur = ?, description = ?, status = ?, `" . $collectionColumn . "` = ? WHERE ref = ?";
             $res = $this->pdo->prepare($query);
             $res->execute(array($nom, $prix, $couleur, $description, $status, $collectionId !== '' ? $collectionId : null, $id));
         } else {

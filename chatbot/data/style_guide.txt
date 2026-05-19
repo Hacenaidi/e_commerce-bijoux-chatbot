@@ -1,4 +1,14 @@
-All Products:
- - Jackets
- - Jackets
+Category: Bracelets
+ - Lulu Bracelet
  - nour
+
+Category: Earrings
+ - chams el hob 
+ - Lulu Earrings
+ - nour
+
+Category: test
+ - bohaliya
+ - nour
+ - nourdedded
+

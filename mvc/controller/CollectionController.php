@@ -1,5 +1,5 @@
 <?php
-include_once('../database/config.php');
+include_once('../../database/config.php');
 
 class CollectionController extends Connexion {
     
@@ -55,7 +55,7 @@ class CollectionController extends Connexion {
     
     // Get count of products in collection
     public function getProductCountInCollection($collectionId) {
-        $query = "SELECT COUNT(*) FROM produit WHERE collection_id = ?";
+        $query = "SELECT COUNT(*) FROM produit WHERE id_collection = ?";
         $res = $this->pdo->prepare($query);
         $res->execute(array($collectionId));
         return (int) $res->fetchColumn();
@@ -63,7 +63,7 @@ class CollectionController extends Connexion {
 
     // Get product names in a collection
     public function getProductsInCollection($collectionId) {
-        $query = "SELECT nom FROM produit WHERE collection_id = ? ORDER BY nom ASC";
+        $query = "SELECT nom FROM produit WHERE id_collection = ? ORDER BY nom ASC";
         $res = $this->pdo->prepare($query);
         $res->execute(array($collectionId));
         return $res->fetchAll(PDO::FETCH_COLUMN);

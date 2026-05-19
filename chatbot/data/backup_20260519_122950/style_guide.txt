@@ -1,0 +1,10 @@
+Category: Bracelets
+ - Lulu Bracelet
+
+Category: Earrings
+ - chams el hob 
+ - Lulu Earrings
+
+Category: test
+ - nour
+

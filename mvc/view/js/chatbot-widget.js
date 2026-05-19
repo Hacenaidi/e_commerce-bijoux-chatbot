@@ -2,6 +2,7 @@
 // Peut être intégré dans toutes les pages
 
 const CHATBOT_API_URL = 'http://localhost:8000';
+const CHATBOT_LANGUAGE_KEY = 'chatbot-language';
 // Typing indicator state
 let _chatbotTypingElem = null;
 let _chatbotTypingStart = 0;
@@ -29,6 +30,14 @@ function initChatbotWidget() {
                 <div class="chatbot-modal-header">
                     <h3>${String.fromCodePoint(0x1F4AC)} Assistant Bijoux</h3>
                     <button class="chatbot-close-btn" onclick="toggleChatbotModal()">X</button>
+                </div>
+
+                <div class="chatbot-language-bar">
+                    <label for="chatbotLanguageSelect">Language</label>
+                    <select id="chatbotLanguageSelect" class="chatbot-language-select" aria-label="Chat language">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
                 </div>
                 
                 <div class="chatbot-modal-body" id="chatbotModalBody">
@@ -60,6 +69,8 @@ function initChatbotWidget() {
 
     // Add widget to page
     document.body.insertAdjacentHTML('beforeend', widgetHTML);
+    bindWidgetLanguageEvents();
+    syncWidgetLanguageUI();
 }
 
 /**
@@ -72,6 +83,7 @@ function toggleChatbotModal() {
     if (modal.classList.contains('show')) {
         document.getElementById('chatbotWidgetInput').focus();
         hideChatbotBadge();
+        syncWidgetLanguageUI();
     }
 }
 
@@ -83,6 +95,7 @@ function sendWidgetMessage(event) {
 
     const input = document.getElementById('chatbotWidgetInput');
     const question = input.value.trim();
+    const language = getSelectedWidgetLanguage();
 
     if (!question) return;
 
@@ -94,13 +107,13 @@ function sendWidgetMessage(event) {
     input.focus();
 
     // Send to API
-    sendWidgetToAPI(question);
+    sendWidgetToAPI(question, language);
 }
 
 /**
  * Send to API
  */
-function sendWidgetToAPI(question) {
+function sendWidgetToAPI(question, language) {
     // start typing indicator
     _chatbotTypingStart = Date.now();
     showChatbotTyping();
@@ -109,7 +122,7 @@ function sendWidgetToAPI(question) {
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question: question })
+        body: JSON.stringify({ question: question, language: language || 'fr' })
     })
     .then(response => response.json())
             .then(data => {
@@ -134,6 +147,56 @@ function sendWidgetToAPI(question) {
         console.error('Error:', error);
         addWidgetMessage('bot', '⚠️ L\'API n\'est pas disponible. Assurez-vous que le serveur Python est lancé.');
     });
+}
+
+function getSelectedWidgetLanguage() {
+    const select = document.getElementById('chatbotLanguageSelect');
+    return select ? select.value : 'fr';
+}
+
+function bindWidgetLanguageEvents() {
+    const select = document.getElementById('chatbotLanguageSelect');
+    if (!select) return;
+    const saved = localStorage.getItem(CHATBOT_LANGUAGE_KEY);
+    if (saved === 'fr' || saved === 'en') {
+        select.value = saved;
+    }
+    select.addEventListener('change', () => {
+        localStorage.setItem(CHATBOT_LANGUAGE_KEY, select.value);
+        syncWidgetLanguageUI();
+    });
+}
+
+function syncWidgetLanguageUI() {
+    const select = document.getElementById('chatbotLanguageSelect');
+    const input = document.getElementById('chatbotWidgetInput');
+    const sendButton = document.querySelector('.chatbot-send-btn');
+    const header = document.querySelector('.chatbot-modal-header h3');
+    const body = document.getElementById('chatbotModalBody');
+    if (!select) return;
+
+    const language = select.value === 'en' ? 'en' : 'fr';
+    localStorage.setItem(CHATBOT_LANGUAGE_KEY, language);
+
+    if (input) {
+        input.placeholder = language === 'en' ? 'Type your question...' : 'Tapez votre question...';
+    }
+    if (sendButton) {
+        sendButton.textContent = language === 'en' ? 'Send' : 'Envoyer';
+    }
+    if (header) {
+        header.textContent = language === 'en'
+            ? `${String.fromCodePoint(0x1F4AC)} Jewelry Assistant`
+            : `${String.fromCodePoint(0x1F4AC)} Assistant Bijoux`;
+    }
+    if (body) {
+        const greeting = body.querySelector('.bot-message .message-content');
+        if (greeting && body.children.length > 0) {
+            greeting.textContent = language === 'en'
+                ? `Hello! ${String.fromCodePoint(0x1F44B)} How can I help you?`
+                : `Bonjour! ${String.fromCodePoint(0x1F44B)} Comment puis-je vous aider?`;
+        }
+    }
 }
 
 /**

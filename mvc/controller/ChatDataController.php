@@ -1,5 +1,8 @@
 <?php
-include_once('./../database/config.php');
+$dbConfig = __DIR__ . '../../database/config.php';
+if (file_exists($dbConfig)) {
+    include_once($dbConfig);
+}
 
 class ChatDataController extends Connexion {
     public function __construct() {
@@ -7,15 +10,23 @@ class ChatDataController extends Connexion {
     }
 
     private function hasProduitColumn($columnName) {
+        // Accept both possible column names used historically: 'id_collection' and 'collection_id'
+        $candidates = array($columnName);
+        if ($columnName === 'collection_id' || $columnName === 'id_collection') {
+            $candidates = array('id_collection', 'collection_id');
+        }
         $query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'produit' AND COLUMN_NAME = ?";
-        $res = $this->pdo->prepare($query);
-        $res->execute(array($columnName));
-        return ((int) $res->fetchColumn() > 0);
+        foreach ($candidates as $col) {
+            $res = $this->pdo->prepare($query);
+            $res->execute(array($col));
+            if (((int) $res->fetchColumn()) > 0) return true;
+        }
+        return false;
     }
 
     // Regenerate chatbot data files from DB
     public function regenerate() {
-        $dataDir = realpath('./../../chatbot/data');
+        $dataDir = realpath(__DIR__ . '/../../chatbot/data');
         // Backup existing files
         $timestamp = date('Ymd_His');
         $backupDir = $dataDir . '/backup_' . $timestamp;
@@ -32,7 +43,8 @@ class ChatDataController extends Connexion {
         $hasCollection = $this->hasProduitColumn('collection_id');
         
         if ($hasCollection) {
-            $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description, c.nom AS collection_nom, p.image FROM produit p LEFT JOIN collection c ON p.collection_id = c.id ORDER BY p.nom ASC";
+            // use id_collection as canonical column name (older code uses both variants)
+            $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description, c.nom AS collection_nom, p.image FROM produit p LEFT JOIN collection c ON p.id_collection = c.id ORDER BY p.nom ASC";
         } else {
             $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description,p.image FROM produit p ORDER BY p.nom ASC";
         }
@@ -60,7 +72,7 @@ class ChatDataController extends Connexion {
 
             foreach ($collections as $col) {
                 $styleContent .= "Category: " . $col['nom'] . "\n";
-                $prodStmt = $this->pdo->prepare("SELECT nom FROM produit WHERE collection_id = ? ORDER BY nom ASC");
+                $prodStmt = $this->pdo->prepare("SELECT nom FROM produit WHERE id_collection = ? ORDER BY nom ASC");
                 $prodStmt->execute(array($col['id']));
                 $prods = $prodStmt->fetchAll(PDO::FETCH_COLUMN);
                 foreach ($prods as $pn) {
@@ -70,7 +82,7 @@ class ChatDataController extends Connexion {
             }
 
             // If there are products without collection, add them under 'Uncategorized'
-            $uncatStmt = $this->pdo->prepare("SELECT nom FROM produit WHERE collection_id IS NULL OR collection_id = '' ORDER BY nom ASC");
+            $uncatStmt = $this->pdo->prepare("SELECT nom FROM produit WHERE id_collection IS NULL OR id_collection = '' ORDER BY nom ASC");
             $uncatStmt->execute();
             $uncat = $uncatStmt->fetchAll(PDO::FETCH_COLUMN);
             if (!empty($uncat)) {

@@ -1,6 +1,7 @@
 // Chatbot API Configuration
 const CHATBOT_API_URL = 'http://localhost:8000'; // URL de l'API Python
 const HEALTH_CHECK_INTERVAL = 5000; // Vérifier la santé de l'API toutes les 5s
+const CHATBOT_LANGUAGE_KEY = 'chatbot-language';
 
 // Store messages
 let chatMessages = [];
@@ -14,10 +15,61 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Chatbot initialized');
+    initLanguageSelector();
     checkAPIHealth();
     // Auto-scroll to bottom
     scrollToBottom();
 });
+
+function initLanguageSelector() {
+    if (!chatForm || document.getElementById('chatLanguageSelect')) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'chat-language-wrapper';
+    wrapper.style.cssText = 'display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:0 0 14px;padding:10px 14px;border-radius:16px;background:linear-gradient(135deg,#E63946 0%,#A4161A 100%);box-shadow:0 10px 24px rgba(230,57,70,.18);';
+
+    const label = document.createElement('label');
+    label.setAttribute('for', 'chatLanguageSelect');
+    label.textContent = 'Language';
+    label.style.cssText = 'font-size:11px;color:rgba(255,255,255,.92);letter-spacing:.12em;text-transform:uppercase;font-weight:700;';
+
+    const select = document.createElement('select');
+    select.id = 'chatLanguageSelect';
+    select.style.cssText = 'min-width:120px;border:1px solid rgba(255,255,255,.26);border-radius:999px;padding:8px 34px 8px 14px;background:rgba(255,255,255,.12);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.18);appearance:none;-webkit-appearance:none;-moz-appearance:none;';
+    select.innerHTML = '<option value="fr">Français</option><option value="en">English</option>';
+
+    const saved = localStorage.getItem(CHATBOT_LANGUAGE_KEY);
+    if (saved === 'fr' || saved === 'en') {
+        select.value = saved;
+    }
+    select.addEventListener('change', () => {
+        localStorage.setItem(CHATBOT_LANGUAGE_KEY, select.value);
+    });
+
+    select.style.backgroundImage = 'linear-gradient(45deg, transparent 50%, rgba(255,255,255,.95) 50%), linear-gradient(135deg, rgba(255,255,255,.95) 50%, transparent 50%), linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.06))';
+    select.style.backgroundPosition = 'calc(100% - 16px) calc(50% - 2px), calc(100% - 11px) calc(50% - 2px), 0 0';
+    select.style.backgroundSize = '5px 5px, 5px 5px, 100% 100%';
+    select.style.backgroundRepeat = 'no-repeat';
+
+    const optionStyle = document.createElement('style');
+    optionStyle.textContent = `
+        #chatLanguageSelect option {
+            background: #fff5f5;
+            color: #4a1d1d;
+        }
+        #chatLanguageSelect option:checked,
+        #chatLanguageSelect option:hover {
+            background: #E63946;
+            color: #fff;
+        }
+    `;
+    document.head.appendChild(optionStyle);
+
+    wrapper.appendChild(label);
+    wrapper.appendChild(select);
+
+    chatForm.parentNode.insertBefore(wrapper, chatForm);
+}
 
 /**
  * Check if API is healthy
@@ -65,12 +117,14 @@ function sendMessage(event) {
  * Send question to API
  */
 function sendToAPI(question) {
+    const languageSelect = document.getElementById('chatLanguageSelect');
+    const language = languageSelect ? languageSelect.value : (localStorage.getItem(CHATBOT_LANGUAGE_KEY) || 'fr');
     fetch(`${CHATBOT_API_URL}/ask`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ question: question })
+        body: JSON.stringify({ question: question, language: language })
     })
     .then(response => {
         if (!response.ok) {
@@ -221,12 +275,18 @@ function escapeHtml(text) {
 /**
  * Handle Enter key in input
  */
-questionInput.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage(new Event('submit'));
-    }
-});
+if (questionInput) {
+    questionInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage(new Event('submit'));
+        }
+    });
+}
+
+if (chatForm) {
+    chatForm.addEventListener('submit', sendMessage);
+}
 
 // Periodic health check
 setInterval(checkAPIHealth, HEALTH_CHECK_INTERVAL);

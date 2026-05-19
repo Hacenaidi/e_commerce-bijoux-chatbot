@@ -14,10 +14,11 @@ from src.pipeline import (
     split_documents,
     create_vectorstore,
 )
-from src.prompts import build_prompt, answer_question
+from src.prompts import answer_question
 
 class AskRequest(BaseModel):
     question: str
+    language: str = "fr"
 
 class SourceItem(BaseModel):
     source: str
@@ -29,7 +30,6 @@ class AskResponse(BaseModel):
 state = {
 "retriever": None,
 "llm": None,
-"prompt": None,
 }
 
 @asynccontextmanager
@@ -49,7 +49,6 @@ async def lifespan(app: FastAPI):
         temperature=0,
         api_key=groq_api_key,
     )
-    state["prompt"] = build_prompt()
     yield
 app = FastAPI(title="RAG Jewelry API", lifespan=lifespan)
 
@@ -72,11 +71,15 @@ def ask(req: AskRequest):
     if not question:
         raise HTTPException(status_code=400, detail="Question cannot be empty")
 
+    language = (req.language or "fr").strip().lower()
+    if language not in {"fr", "en"}:
+        language = "fr"
+
     answer, docs = answer_question(
         question,
         state["retriever"],
         state["llm"],
-        state["prompt"],
+        language,
     )
 
     sources = []

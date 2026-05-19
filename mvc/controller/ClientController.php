@@ -1,6 +1,6 @@
 <?php
-include_once('../model/Client.php') ;
-include_once('../database/config.php');
+include_once('../../model/Client.php') ;
+include_once('../../database/config.php');
 class ClientController extends Connexion{
 function __construct() {
 parent::__construct();
@@ -40,6 +40,27 @@ function updateClient($id, $nom, $prenom, $email) {
     $res = $this->pdo->prepare($query);
     $res->execute(array($nom, $prenom, $email, $id));
     return $res;
+}
+
+// Change client password after verifying current password
+function changePassword($clientId, $currentPassword, $newPassword) {
+    // Verify current password
+    $query = "SELECT mot_de_passe FROM client WHERE id = ?";
+    $res = $this->pdo->prepare($query);
+    $res->execute(array($clientId));
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    if (!$row) return ['success' => false, 'error' => 'User not found'];
+
+    $existing = $row['mot_de_passe'];
+    if ($existing !== $currentPassword) {
+        return ['success' => false, 'error' => 'Current password is incorrect'];
+    }
+
+    // Update password
+    $update = "UPDATE client SET mot_de_passe = ? WHERE id = ?";
+    $u = $this->pdo->prepare($update);
+    $ok = $u->execute(array($newPassword, $clientId));
+    return ['success' => (bool)$ok];
 }
 
 function rechercheClient(Client $client ){

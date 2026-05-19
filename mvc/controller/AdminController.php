@@ -1,6 +1,13 @@
 <?php
-include_once('../model/Admin.php') ;
-include_once('../database/config.php');
+$adminModel = __DIR__ . '../../model/Admin.php';
+if (file_exists($adminModel)) {
+    include_once($adminModel);
+}
+$dbConfig = __DIR__ . '../../database/config.php';
+if (file_exists($dbConfig)) {
+    include_once($dbConfig);
+}
+
 class AdminController extends Connexion{
 function __construct() {
 parent::__construct();

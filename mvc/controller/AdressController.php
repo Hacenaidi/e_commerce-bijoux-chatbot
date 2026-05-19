@@ -1,7 +1,7 @@
 <?php
 
-include_once('../model/Adress.php');
-include_once('../database/config.php');
+include_once('../../model/Adress.php');
+include_once('../../database/config.php');
 
 class AdressController extends Connexion{
     function __construct() {

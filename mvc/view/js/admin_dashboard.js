@@ -143,5 +143,52 @@
                 function () { return validateEmail(linkedInputs[2]); }
             ]);
         });
+
+        // Confirmation modal is provided by confirm-modal.js (shared). No duplicate here.
     });
 }());
+
+// â"€â"€ DROPDOWN ACTION MENU TOGGLE â"€â"€
+function toggleProductActionMenu(button) {
+    var menu = button.getAttribute('aria-controls');
+    if (!menu) return;
+
+    var panel = document.getElementById(menu);
+    if (!panel) return;
+
+    var isHidden = panel.hasAttribute('hidden');
+    
+    // Close all other action menus
+    document.querySelectorAll('.action-menu-panel').forEach(function (p) {
+        p.setAttribute('hidden', '');
+        p.style.display = 'none';
+        var trigger = p.parentElement.querySelector('.action-menu-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // Toggle current menu
+    if (isHidden) {
+        panel.removeAttribute('hidden');
+        panel.style.display = 'block';
+        button.setAttribute('aria-expanded', 'true');
+    } else {
+        panel.setAttribute('hidden', '');
+        panel.style.display = 'none';
+        button.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Close menus when clicking elsewhere
+document.addEventListener('click', function (e) {
+    // If click is on a menu or trigger, do nothing (let toggle handle it)
+    if (e.target.closest('.action-menu')) {
+        return;
+    }
+    // Close all menus
+    document.querySelectorAll('.action-menu-panel').forEach(function (panel) {
+        panel.setAttribute('hidden', '');
+        panel.style.display = 'none';
+        var trigger = panel.parentElement.querySelector('.action-menu-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+    });
+});

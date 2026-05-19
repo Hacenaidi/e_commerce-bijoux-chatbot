@@ -19,8 +19,8 @@ cd "\chatbot"
 ### 1.2 Créer & Activer l'environnement virtual
 
 ```bash
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+    python -m venv .venv
+.\.venv\Scripts\Activate
 ```
 
 ### 1.3 Installer les dépendances

@@ -1,7 +1,0 @@
-Product: nour
-Color: brown
-Color: brown
-Price: 1500.000
-Description: Women jacket
-Image: images/1778345384__cran_2025-12-01_201241.png
----

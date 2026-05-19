@@ -1,6 +1,6 @@
 <?php
-include_once('../model/Pannier.php') ;
-include_once('../database/config.php');
+include_once('../../model/Pannier.php') ;
+include_once('../../database/config.php');
 class PannierController extends Connexion{
 function __construct() {
 parent::__construct();
@@ -45,11 +45,27 @@ function getpannier($id){
     return $req;
 }
 function updatepannier($id, $qte) {
-    $sql = "UPDATE pannier SET quant = ? WHERE idpann = ?";
-    
+    $pannier = $this->getpannier($id)->fetch(PDO::FETCH_ASSOC);
+    if (!$pannier) {
+        return false;
+    }
+
+    $ref = isset($pannier['ref']) ? $pannier['ref'] : (isset($pannier[2]) ? $pannier[2] : null);
+    if ($ref === null || $ref === '') {
+        return false;
+    }
+
+    $productStmt = $this->pdo->prepare("SELECT prix FROM produit WHERE ref = ?");
+    $productStmt->execute(array($ref));
+    $product = $productStmt->fetch(PDO::FETCH_ASSOC);
+    $price = $product ? (float) $product['prix'] : 0.0;
+    $totalProd = $price * (int) $qte;
+
+    $sql = "UPDATE pannier SET quant = ?, total_prod = ? WHERE idpann = ?";
+
     $res = $this->pdo->prepare($sql);
-    $res->execute(array($qte, $id));
-    
+    $res->execute(array($qte, $totalProd, $id));
+
     return $res;
 }
 
