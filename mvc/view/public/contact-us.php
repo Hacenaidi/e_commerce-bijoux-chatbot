@@ -152,7 +152,7 @@ $controller = new ProduitController();
     <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
 </div>
 
-<!-- â”€â”€ PAGE HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!--  PAGE HERO â”€ -->
 <section class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="page-hero-lines"></div>
@@ -172,7 +172,7 @@ $controller = new ProduitController();
 </section>
 
 
-<!-- â”€â”€ MAIN CONTACT AREA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!--  MAIN CONTACT AREA  -->
 <section class="contact-section">
 
     <!-- LEFT â€” INFO COLUMN -->
@@ -247,7 +247,7 @@ $controller = new ProduitController();
 
 </section>
 
-<!-- â”€â”€ MARQUEE BAND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!--  MARQUEE BAND  -->
 <div class="marquee-band">
     <div class="marquee-inner">
         <?php for($m=0;$m<2;$m++): ?>
@@ -263,7 +263,7 @@ $controller = new ProduitController();
     </div>
 </div>
 
-<!-- â”€â”€ AMBIENT STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!--  AMBIENT STRIP â”€ -->
 <div class="ambient-strip">
     <div class="adot" style="width:3px;height:3px;left:10%;bottom:20%;animation-delay:0s;animation-duration:8s"></div>
     <div class="adot" style="width:2px;height:2px;left:45%;bottom:40%;animation-delay:2s;animation-duration:6s"></div>
@@ -277,7 +277,7 @@ $controller = new ProduitController();
     </div>
 </div>
 
-<!-- â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ -->
+<!--  FOOTER  -->
 <footer>
     <div class="ft-grid">
         <div>
@@ -335,7 +335,7 @@ $controller = new ProduitController();
     <script src="../js/response-formatter.js"></script>
     <script src="../js/chatbot-widget.js?v=20260517.1"></script>
 <script>
-/* â”€â”€ GLITTER â”€â”€ */
+/*  GLITTER  */
 function createGlitter() {
     const layer = document.getElementById('glitter-layer');
     if (!layer) return;
@@ -349,7 +349,7 @@ function createGlitter() {
 }
 setInterval(createGlitter, 120);
 
-/* â”€â”€ CURSOR â”€â”€ */
+/*  CURSOR  */
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth/2, my = window.innerHeight/2;
@@ -367,20 +367,20 @@ document.querySelectorAll('a,button,.c-card').forEach(el => {
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-/* â”€â”€ STICKY NAV â”€â”€ */
+/*  STICKY NAV  */
 window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
     document.getElementById('btt').style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-/* â”€â”€ SCROLL REVEAL â”€â”€ */
+/*  SCROLL REVEAL  */
 const revEls = document.querySelectorAll('.rev');
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold:0.12, rootMargin:'0px 0px -50px 0px' });
 revEls.forEach(r => obs.observe(r));
 
-/* â”€â”€ FLOATING LABEL (has-value state) â”€â”€ */
+/*  FLOATING LABEL (has-value state)  */
 document.querySelectorAll('.field-wrap input, .field-wrap textarea').forEach(el => {
     const wrap = el.closest('.field-wrap');
     el.addEventListener('input', () => {
@@ -388,13 +388,13 @@ document.querySelectorAll('.field-wrap input, .field-wrap textarea').forEach(el 
     });
 });
 
-/* â”€â”€ SIDE CART â”€â”€ */
+/*  SIDE CART  */
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');
 }
 
-/* â”€â”€ SEARCH â”€â”€ */
+/*  SEARCH  */
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     const ov = document.getElementById('searchOv');
@@ -408,7 +408,7 @@ document.addEventListener('keydown', e => {
     if(e.key === 'Escape') document.getElementById('searchOv').style.display = 'none';
 });
 
-/* â”€â”€ CONTACT FORM (original logic preserved) â”€â”€ */
+/*  CONTACT FORM (original logic preserved)  */
 document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
     const name    = document.getElementById('name').value.trim();

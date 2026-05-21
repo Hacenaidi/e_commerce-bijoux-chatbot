@@ -21,8 +21,8 @@ $produits = $controller->getAllnom();
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/chatbot-widget.css?v=20260517.2">
-<link rel="stylesheet" href="../css/chatbot-messages.css">
-<link rel="stylesheet" href="../css/response-format.css">
+    <link rel="stylesheet" href="../css/chatbot-messages.css">
+    <link rel="stylesheet" href="../css/response-format.css">
         <link rel="stylesheet" href="../css/base.css">
         <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">

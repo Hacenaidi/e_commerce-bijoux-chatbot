@@ -1,14 +1,8 @@
 Category: Bracelets
+ - chams el hob 
  - Lulu Bracelet
- - nour
 
 Category: Earrings
- - chams el hob 
+ - Baby Blue Glowria
  - Lulu Earrings
- - nour
-
-Category: test
- - bohaliya
- - nour
- - nourdedded
 

@@ -573,7 +573,7 @@ if ($ref !== '' && $product) {
 <footer>
     <div class="ft-grid">
         <div>
-            <div class="ft-logo"><img src="images/logo.png" alt="Glowear"></div>
+            <div class="ft-logo"><img src="../images/logo.png" alt="Glowear"></div>
             <p class="ft-desc">Handcrafted bijoux that celebrate your unique glow. Each piece is made with intention, love, and the finest materials.</p>
             <div class="ft-social">
                 <a href="#"><i class="fab fa-instagram"></i></a>
