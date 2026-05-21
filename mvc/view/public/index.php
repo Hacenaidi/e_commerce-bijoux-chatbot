@@ -413,7 +413,7 @@ setInterval(createGlitter, 120);
 <?php endif; ?>
 
 <script>
-// â”€â”€ SMOOTH CURSOR
+//  SMOOTH CURSOR
 const cur = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx=window.innerWidth/2, my=window.innerHeight/2;
@@ -431,12 +431,12 @@ document.querySelectorAll('a,button,.cat-card,.s-card,.insta-item,.feat').forEac
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-// â”€â”€ NAV
+//  NAV
 window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
 });
 
-// â”€â”€ CINEMATIC SCROLL ZOOM + PARALLAX (the film effect)
+//  CINEMATIC SCROLL ZOOM + PARALLAX (the film effect)
 const films = [
     { sec: document.getElementById('film1'), img: document.getElementById('fImg1'), con: document.getElementById('fCon1') },
     { sec: document.getElementById('film2'), img: document.getElementById('fImg2'), con: document.getElementById('fCon2') },
@@ -473,14 +473,14 @@ function onScroll() {
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll(); // run once on load
 
-// â”€â”€ SCROLL REVEAL (general elements)
+//  SCROLL REVEAL (general elements)
 const revEls = document.querySelectorAll('.rev');
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
 revEls.forEach(r => obs.observe(r));
 
-// â”€â”€ HORIZONTAL DRAG SCROLL
+//  HORIZONTAL DRAG SCROLL
 const track = document.getElementById('hTrack');
 let isDragging=false, startX, sl;
 track.addEventListener('mousedown', e => { isDragging=true; startX=e.pageX-track.offsetLeft; sl=track.scrollLeft; });
@@ -491,7 +491,7 @@ track.addEventListener('mousemove', e => {
     track.scrollLeft = sl - (e.pageX - track.offsetLeft - startX) * 1.6;
 });
 
-// â”€â”€ SEARCH
+//  SEARCH
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('searchOv').classList.add('open');
@@ -504,7 +504,7 @@ document.addEventListener('keydown', e => {
     if(e.key === 'Escape') document.getElementById('searchOv').classList.remove('open');
 });
 
-// â”€â”€ CART
+//  CART
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');

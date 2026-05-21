@@ -155,7 +155,7 @@ $controller = new ProduitController();
     </div>
 </nav>
 
-<!-- â•â• PAGE HERO â•â• -->
+<!-- PAGE HERO -->
 <section class="page-hero">
     <div class="page-hero-bg"></div>
     <!-- Decorative floating shapes -->
@@ -173,7 +173,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• CORE PILLARS â€” Mission / Vision / Philosophy â•â• -->
+<!-- CORE PILLARS  Mission / Vision / Philosophy -->
 <section class="pillars-section">
     <div class="pillars-head rev">
         <span class="sec-label" style="display:block;text-align:center">What We Stand For</span>
@@ -201,7 +201,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• HORIZONTAL SERVICE CARDS â•â• -->
+<!-- HORIZONTAL SERVICE CARDS -->
 <section class="service-strip">
     <div class="strip-head">
         <div class="rev" style="display:flex;justify-content:space-between;align-items:flex-end">
@@ -261,7 +261,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• PROCESS â•â• -->
+<!-- PROCESS -->
 <section class="process-section">
     <div class="process-head rev">
         <span class="sec-label">How It Works</span>
@@ -291,7 +291,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• WHY GLOWEAR â•â• -->
+<!-- WHY GLOWEAR -->
 <section class="why-section">
     <div class="why-img">
         <img src="../images/strass2.png" alt="Why Glowear">
@@ -332,7 +332,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• PROMISE BANNER â•â• -->
+<!-- PROMISE BANNER -->
 <section class="promise-banner">
     <div class="promise-bg-text">Glowear</div>
     <p class="promise-sub rev">Our Commitment</p>
@@ -344,7 +344,7 @@ $controller = new ProduitController();
     <a href="shop.php" class="btn-red rev d2">Shop the Collection</a>
 </section>
 
-<!-- â•â• STATS â•â• -->
+<!-- STATS -->
 <div class="stats-bar">
     <div class="stat-item rev"><div class="stat-n">200+</div><div class="stat-l">Unique Pieces</div></div>
     <div class="stat-item rev d1"><div class="stat-n">3K+</div><div class="stat-l">Happy Clients</div></div>
@@ -352,7 +352,7 @@ $controller = new ProduitController();
     <div class="stat-item rev d3"><div class="stat-n">100%</div><div class="stat-l">Handcrafted</div></div>
 </div>
 
-<!-- â•â• MARQUEE â•â• -->
+<!-- MARQUEE -->
 <div class="marquee-band">
     <div class="marquee-inner">
         <?php for($m=0;$m<2;$m++): ?>
@@ -368,7 +368,7 @@ $controller = new ProduitController();
     </div>
 </div>
 
-<!-- â•â• CTA â•â• -->
+<!-- CTA -->
 <section class="cta-section">
     <div>
         <span class="sec-label rev">Ready to Shine?</span>
@@ -381,7 +381,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• INSTAGRAM â•â• -->
+<!-- INSTAGRAM -->
 <section class="insta-sec">
     <div class="insta-head rev">
         <p class="insta-handle"><i class="fab fa-instagram"></i> @glowear</p>
@@ -396,7 +396,7 @@ $controller = new ProduitController();
     </div>
 </section>
 
-<!-- â•â• FOOTER â•â• -->
+<!-- FOOTER -->
 <footer>
     <div class="ft-grid">
         <div>
@@ -454,7 +454,7 @@ $controller = new ProduitController();
 <script src="../js/chatbot-widget.js?v=20260517.1"></script>
 <?php endif; ?>
 <script>
-// â”€â”€ CURSOR
+//  CURSOR
 const cur=document.getElementById('cur'), curR=document.getElementById('cur-ring');
 let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
@@ -469,20 +469,20 @@ document.querySelectorAll('a,button,.mvp-card,.svc-card,.insta-item,.why-item,.p
     el.addEventListener('mouseleave',()=>document.body.classList.remove('big-cur'));
 });
 
-// â”€â”€ NAV + BACK TO TOP
+//  NAV + BACK TO TOP
 window.addEventListener('scroll',()=>{
     document.getElementById('nav').classList.toggle('stuck', window.scrollY>60);
     document.getElementById('btt').style.display = window.scrollY>320 ? 'block':'none';
 });
 
-// â”€â”€ SCROLL REVEAL
+//  SCROLL REVEAL
 const revEls=document.querySelectorAll('.rev');
 const obs=new IntersectionObserver(entries=>{
     entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
 },{threshold:.1,rootMargin:'0px 0px -50px 0px'});
 revEls.forEach(r=>obs.observe(r));
 
-// â”€â”€ HORIZONTAL DRAG SCROLL
+//  HORIZONTAL DRAG SCROLL
 const svcTrack=document.getElementById('svcTrack');
 let isDragging=false, startX, sl;
 svcTrack.addEventListener('mousedown',e=>{isDragging=true;startX=e.pageX-svcTrack.offsetLeft;sl=svcTrack.scrollLeft;});
@@ -493,7 +493,7 @@ svcTrack.addEventListener('mousemove',e=>{
     svcTrack.scrollLeft=sl-(e.pageX-svcTrack.offsetLeft-startX)*1.6;
 });
 
-// â”€â”€ SEARCH
+//  SEARCH
 document.getElementById('searchBtn').addEventListener('click',e=>{
     e.preventDefault();
     document.getElementById('searchOv').classList.add('open');
@@ -502,7 +502,7 @@ document.getElementById('searchBtn').addEventListener('click',e=>{
 document.getElementById('searchClose').addEventListener('click',()=>document.getElementById('searchOv').classList.remove('open'));
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('searchOv').classList.remove('open');});
 
-// â”€â”€ CART
+//  CART
 function toggleCart(){
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');

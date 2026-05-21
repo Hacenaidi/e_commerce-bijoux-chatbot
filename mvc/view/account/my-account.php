@@ -73,7 +73,11 @@ if ($id) {
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<?php include_once(__DIR__ . '/../inc/search_overlay.php'); ?>
+<div class="search-ov" id="searchOv">
+    <i class="fa fa-times search-ov-close" id="searchClose"></i>
+    <input type="text" placeholder="Search bijoux...">
+    <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
+</div>
 
 <!-- Side Cart -->
 <div class="cart-overlay" id="cartOv" onclick="toggleCart()"></div>
@@ -183,7 +187,6 @@ if ($id) {
     </div>
 </div>
 
-<!-- â•â• MAIN CONTENT â•â• -->
 <div class="account-wrap">
 
     <?php if (isset($_SESSION['id'])): ?>
@@ -336,7 +339,6 @@ if ($id) {
 <script src="js/chatbot.js?v=20260517.1"></script>
 
 <script>
-// â”€â”€ SMOOTH CURSOR
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -359,7 +361,6 @@ window.addEventListener('scroll', () => {
     document.getElementById('btt').style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-// â”€â”€ SCROLL REVEAL
 const allRev = document.querySelectorAll(
     '.rev, .account-card, .welcome-strip, .guest-banner'
 );
@@ -370,7 +371,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
 allRev.forEach(r => obs.observe(r));
 
-// â”€â”€ SEARCH
+
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('searchOv').classList.add('open');
@@ -383,13 +384,12 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') document.getElementById('searchOv').classList.remove('open');
 });
 
-// â”€â”€ CART
+
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');
 }
 
-// â”€â”€ BACK TO TOP
 document.getElementById('btt').addEventListener('click', e => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });

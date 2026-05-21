@@ -148,7 +148,7 @@ if ($ref !== '' && $product) {
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- â”€â”€ SIDE CART â”€â”€ -->
+<!--  SIDE CART  -->
 <div class="cart-overlay" id="cartOv" onclick="toggleCart()"></div>
 <div class="side-cart" id="sideCart">
     <div class="sc-head">
@@ -180,14 +180,14 @@ if ($ref !== '' && $product) {
     <a href="checkout.php" class="btn-ghost" style="display:block;text-align:center">Checkout</a>
 </div>
 
-<!-- â”€â”€ SEARCH OVERLAY â”€â”€ -->
+<!--  SEARCH OVERLAY  -->
 <div id="searchOv" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:3000;flex-direction:column;align-items:center;justify-content:center;">
     <i class="fa fa-times" id="searchClose" style="position:absolute;top:36px;right:56px;font-size:22px;color:rgba(255,255,255,.4);cursor:pointer;"></i>
     <input type="text" placeholder="Search bijoux..." style="background:none;border:none;border-bottom:1px solid rgba(255,255,255,.25);font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;width:60%;max-width:580px;padding:14px 0;text-align:center;outline:none;">
     <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
 </div>
 
-<!-- â”€â”€ TICKER â”€â”€ -->
+<!--  TICKER  -->
 <div class="ticker">
     <div class="ticker-inner">
         <span>&bull; Handmade with love</span>
@@ -209,7 +209,7 @@ if ($ref !== '' && $product) {
     </div>
 </div>
 
-<!-- â”€â”€ NAV â”€â”€ -->
+<!--  NAV  -->
 <nav class="nav-wrap" id="nav">
     <div class="nav-logo"><a href="index.php"><img src="../images/logo.png" alt="Glowear"></a></div>
     <ul class="nav-links">
@@ -250,7 +250,7 @@ if ($ref !== '' && $product) {
     </div>
 </nav>
 
-<!-- â”€â”€ PAGE HERO â”€â”€ -->
+<!--  PAGE HERO  -->
 <section class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="page-hero-lines"></div>
@@ -280,12 +280,12 @@ if ($ref !== '' && $product) {
 </section>
 
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+<!-- 
      SHOP BODY
-â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+ -->
 <div class="shop-wrap">
 
-    <!-- â”€â”€ SIDEBAR (always visible) â”€â”€ -->
+    <!--  SIDEBAR (always visible)  -->
     <aside class="sidebar">
         <form action="shop.php<?php echo ($nom !== '') ? '?nom=' . urlencode($nom) : ''; ?>" method="POST">
 
@@ -332,9 +332,7 @@ if ($ref !== '' && $product) {
 
 
     <?php if ($showProductDetail): ?>
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         SINGLE PRODUCT DETAIL VIEW
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!--  SINGLE PRODUCT DETAIL VIEW  -->
     <div class="detail-wrap">
         <?php
         $stockTotal = $stockController->getTotalStockByRef($product['ref']);
@@ -414,9 +412,7 @@ if ($ref !== '' && $product) {
 
 
     <?php else: ?>
-    <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-         PRODUCT GRID (collection / filter view)
-    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+    <!--  PRODUCT GRID (collection / filter view)  -->
     <div class="products-area">
         <div class="products-grid">
 
@@ -442,7 +438,7 @@ if ($ref !== '' && $product) {
 
             <div class="product-card rev">
 
-                <!-- â”€â”€ Image â”€â”€ -->
+                <!--  Image  -->
                 <div class="product-media">
                     <span class="product-badge <?php echo !$inStock ? 'oos' : '' ?>">
                         <?php echo $inStock ? htmlspecialchars($l[4]) : 'Out of Stock' ?>
@@ -455,7 +451,7 @@ if ($ref !== '' && $product) {
                     </div>
                 </div>
 
-                <!-- â”€â”€ Info â”€â”€ -->
+                <!--  Info  -->
                 <div class="product-info">
                     <span class="product-chip">Luxury piece</span>
                     <h4 class="product-name"><?php echo htmlspecialchars($l[1]) ?></h4>
@@ -467,7 +463,7 @@ if ($ref !== '' && $product) {
                     <p class="product-price">DT <?php echo htmlspecialchars($l[5]) ?></p>
                 </div>
 
-                <!-- â”€â”€ Add to Cart Form â”€â”€ -->
+                <!--  Add to Cart Form  -->
                 <div class="product-form">
                     <form action="../actions/addToCart.php" method="POST">
                         <div class="form-row">
@@ -534,7 +530,7 @@ if ($ref !== '' && $product) {
 </div><!-- /shop-wrap -->
 
 
-<!-- â”€â”€ MARQUEE â”€â”€ -->
+<!--  MARQUEE  -->
 <div class="marquee-band">
     <div class="marquee-inner">
         <?php for($m=0;$m<2;$m++): ?>
@@ -550,7 +546,7 @@ if ($ref !== '' && $product) {
     </div>
 </div>
 
-<!-- â”€â”€ INSTAGRAM â”€â”€ -->
+<!--  INSTAGRAM  -->
 <section class="insta-sec">
     <div class="insta-head rev">
         <p class="insta-handle"><i class="fab fa-instagram"></i> @glowear</p>
@@ -569,7 +565,7 @@ if ($ref !== '' && $product) {
     </div>
 </section>
 
-<!-- â”€â”€ FOOTER â”€â”€ -->
+<!--  FOOTER  -->
 <footer>
     <div class="ft-grid">
         <div>
@@ -620,7 +616,7 @@ if ($ref !== '' && $product) {
 
 <a href="#" id="btt"><i class="fas fa-chevron-up"></i></a>
 
-<!-- â”€â”€ JS â”€â”€ -->
+<!--  JS  -->
 <script src="../js/jquery-3.2.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
@@ -628,7 +624,7 @@ if ($ref !== '' && $product) {
     <script src="../js/chatbot-widget.js?v=20260517.1"></script>
 
 <script>
-/* â”€â”€ GLITTER â”€â”€ */
+/*  GLITTER  */
 function createGlitter() {
     const layer = document.getElementById('glitter-layer');
     if (!layer) return;
@@ -642,7 +638,7 @@ function createGlitter() {
 }
 setInterval(createGlitter, 120);
 
-/* â”€â”€ CURSOR â”€â”€ */
+/*  CURSOR  */
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
@@ -658,25 +654,25 @@ document.querySelectorAll('a,button,select,input,.product-card,.detail-card,.sid
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-/* â”€â”€ STICKY NAV + BACK TO TOP â”€â”€ */
+/*  STICKY NAV + BACK TO TOP  */
 window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
     document.getElementById('btt').style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-/* â”€â”€ SCROLL REVEAL â”€â”€ */
+/*  SCROLL REVEAL  */
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
 document.querySelectorAll('.rev').forEach(r => obs.observe(r));
 
-/* â”€â”€ CART â”€â”€ */
+/*  CART  */
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');
 }
 
-/* â”€â”€ SEARCH â”€â”€ */
+/*  SEARCH  */
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     const ov = document.getElementById('searchOv');
@@ -690,7 +686,7 @@ document.addEventListener('keydown', e => {
     if(e.key === 'Escape') document.getElementById('searchOv').style.display = 'none';
 });
 
-/* â”€â”€ FILTER SUBMIT SYNC â”€â”€ */
+/*  FILTER SUBMIT SYNC  */
 (function() {
     var form = document.querySelector('.sidebar form');
     if (!form) return;
@@ -713,7 +709,7 @@ document.addEventListener('keydown', e => {
     });
 }());
 
-/* â”€â”€ PRICE RANGE SLIDER â”€â”€ */
+/*  PRICE RANGE SLIDER  */
 $(function() {
     var initialMin = <?php echo (int)$priceMin; ?>;
     var initialMax = <?php echo (int)$priceMax; ?>;

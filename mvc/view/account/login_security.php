@@ -161,7 +161,7 @@ $controller = new ProduitController();
     $lp_side  = $controllerpannier->listpannier($id);
     while ($l = $lp_side->fetch()):
         $pro = $controller->produit($l[2])->fetch();
-        $cartImage = function_exists('view_safe_image_path') ? view_safe_image_path($pro[6] ?? '') : ($pro[6] ?? 'images/placeholder.png');
+        $cartImage = function_exists('view_safe_image_path') ? view_safe_image_path($pro[6] ?? '') : ($pro[6] ?? '../images/placeholder.png');
         $cartName = $pro[4] ?? '';
         $cartPrice = $pro[5] ?? '';
     ?>

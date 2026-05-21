@@ -5,26 +5,7 @@ include_once('../../database/config.php');
 class OrderController extends Connexion{
     function __construct() {
         parent::__construct();
-        $this->ensureOrderItemsTable();
-    }
-
-    private function ensureOrderItemsTable() {
-        $query = "CREATE TABLE IF NOT EXISTS `order_items` (
-            `id` INT NOT NULL AUTO_INCREMENT,
-            `order_id` INT NOT NULL,
-            `product_ref` VARCHAR(100) NOT NULL,
-            `product_name` VARCHAR(255) NOT NULL,
-            `product_image` VARCHAR(255) DEFAULT NULL,
-            `quantity` INT NOT NULL DEFAULT 1,
-            `taille` VARCHAR(100) DEFAULT NULL,
-            `unit_price` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            `line_total` DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`),
-            KEY `idx_order_items_order_id` (`order_id`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-        $res = $this->pdo->prepare($query);
-        $res->execute();
+        
     }
     //this function is used to create an order
     function createOrder(Order $order) {
@@ -69,24 +50,10 @@ class OrderController extends Connexion{
     }
 
     function getOrderDetails($orderId) {
-        // Check if status column exists
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-        $hasStatusColumn = ((int) $check->fetchColumn() > 0);
-
-        if ($hasStatusColumn) {
-            $query = "SELECT o.id AS order_id, o.total, o.status, a.first_name, a.last_name, a.email, a.adress, a.telephone, a.zip
+        $query = "SELECT o.id AS order_id, o.total, o.status, a.first_name, a.last_name, a.email, a.adress, a.telephone, a.zip
                       FROM `order` o
                       INNER JOIN address a ON o.address_id = a.id
                       WHERE o.id = ?";
-        } else {
-            $query = "SELECT o.id AS order_id, o.total, 'pending' AS status, a.first_name, a.last_name, a.email, a.adress, a.telephone, a.zip
-                      FROM `order` o
-                      INNER JOIN address a ON o.address_id = a.id
-                      WHERE o.id = ?";
-        }
-
         $res = $this->pdo->prepare($query);
         $res->execute(array($orderId));
         $order = $res->fetch(PDO::FETCH_ASSOC);
@@ -110,24 +77,12 @@ class OrderController extends Connexion{
     }
 
     function listOrdersByClient($clientId) {
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-        $hasStatusColumn = ((int) $check->fetchColumn() > 0);
-
-        if ($hasStatusColumn) {
-            $query = "SELECT o.id, o.total, o.status, a.first_name, a.last_name, a.email, a.adress, a.telephone
+       
+        $query = "SELECT o.id, o.total, o.status, a.first_name, a.last_name, a.email, a.adress, a.telephone
                       FROM `order` o
                       INNER JOIN address a ON o.address_id = a.id
                       WHERE a.id_client = ?
                       ORDER BY o.id DESC";
-        } else {
-            $query = "SELECT o.id, o.total, 'pending' AS status, a.first_name, a.last_name, a.email, a.adress, a.telephone
-                      FROM `order` o
-                      INNER JOIN address a ON o.address_id = a.id
-                      WHERE a.id_client = ?
-                      ORDER BY o.id DESC";
-        }
 
         $res = $this->pdo->prepare($query);
         $res->execute(array($clientId));
@@ -142,33 +97,20 @@ class OrderController extends Connexion{
     }
 
     function approveOrder($ref) {
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-
-        if ((int) $check->fetchColumn() > 0) {
-            $query = "UPDATE `order` SET `status` = 'approved' WHERE `id` = ?";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($ref));
-            return $res;
-        }
-
-        return false;
+      
+        $query = "UPDATE `order` SET `status` = 'approved' WHERE `id` = ?";
+        $res = $this->pdo->prepare($query);
+        $res->execute(array($ref));
+        return $res;
     }
 
     function cancelOrder($ref) {
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-
-        if ((int) $check->fetchColumn() > 0) {
-            $query = "UPDATE `order` SET `status` = 'cancelled' WHERE `id` = ?";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($ref));
-            return $res;
-        }
-
-        return false;
+    
+        $query = "UPDATE `order` SET `status` = 'cancelled' WHERE `id` = ?";
+        $res = $this->pdo->prepare($query);
+        $res->execute(array($ref));
+        return $res;
+       
     }
 
     // Public method to verify order ownership
@@ -182,17 +124,8 @@ class OrderController extends Connexion{
 
     // Public method to get order status
     function getOrderStatus($orderId) {
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-        $hasStatusColumn = ((int) $check->fetchColumn() > 0);
-
-        if ($hasStatusColumn) {
-            $query = "SELECT status FROM `order` WHERE id = ?";
-        } else {
-            $query = "SELECT 'pending' AS status FROM `order` WHERE id = ?";
-        }
-
+        
+        $query = "SELECT status FROM `order` WHERE id = ?";
         $res = $this->pdo->prepare($query);
         $res->execute(array($orderId));
         return strtolower($res->fetchColumn() ?: 'pending');
@@ -209,16 +142,6 @@ class OrderController extends Connexion{
         $status = $this->getOrderStatus($orderId);
         if ($status !== 'pending') {
             return ['success' => false, 'error' => 'Only pending orders can be cancelled'];
-        }
-
-        // Check if status column exists before cancelling
-        $checkQuery = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'order' AND COLUMN_NAME = 'status'";
-        $check = $this->pdo->prepare($checkQuery);
-        $check->execute();
-        $hasStatusColumn = ((int) $check->fetchColumn() > 0);
-
-        if (!$hasStatusColumn) {
-            return ['success' => false, 'error' => 'Order status tracking not available'];
         }
 
         // Cancel order

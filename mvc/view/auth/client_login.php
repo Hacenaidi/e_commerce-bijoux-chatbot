@@ -11,13 +11,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
     $cc = new ClientController();
-    $res = $cc->authenticateClient($mail, $password);
-    if ($res && $res->rowCount() == 1) {
-        $l = $res->fetch();
-        $_SESSION['id'] = $l[0];
-        $_SESSION['nom'] = $l[1];
-        $_SESSION['prenom'] = $l[2];
-        $_SESSION['email'] = $l[4];
+    $user = $cc->authenticateClient($mail, $password);
+    if ($user) {
+        // user is associative array
+        $_SESSION['id'] = $user['id'] ?? null;
+        $_SESSION['nom'] = $user['nom'] ?? '';
+        $_SESSION['prenom'] = $user['prenom'] ?? '';
+        $_SESSION['email'] = $user['email'] ?? '';
         $_SESSION['admin'] = false;
         header("Location: ../public/checkout.php");
         exit;
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Glowear â€” Login</title>
+    <title>Glowear &mdash; Login</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/chatbot-widget.css?v=20260517.2">
@@ -48,9 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="ticker">
         <div class="ticker-inner">
-            <span>âœ¦ Handmade with love</span><span>âœ¦ Elegant bijoux ðŸ’–</span>
-            <span>âœ¦ Limited pieces ðŸ’Ž</span><span>âœ¦ Discover your sparkle ðŸŒ¸</span>
-            <span>âœ¦ Glowear exclusive âœ¨</span><span>âœ¦ Wear your glow ðŸŒ™</span>
+            <span>&mdash; Handmade with love&mdash;</span><span>&mdash; Elegant bijoux &mdash;</span>
+            <span>&mdash; Limited pieces &mdash;</span><span>&mdash; Discover your sparkle &mdash;</span>
+            <span>&mdash; Glowear exclusive &mdash;</span><span>&mdash; Wear your glow &mdash;</span>
         </div>
     </div>
 

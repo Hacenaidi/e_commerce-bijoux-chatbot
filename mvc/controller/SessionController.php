@@ -25,7 +25,7 @@ class SessionController
     public function requireAdmin()
     {
         if (!$this->isAdminLoggedIn()) {
-            header('Location: admin.php');
+            header('Location: ../admin/admin.php');
             exit;
         }
     }
@@ -33,7 +33,7 @@ class SessionController
     public function redirectIfAdmin()
     {
         if ($this->isAdminLoggedIn()) {
-            header('Location: admin_dashboard.php');
+            header('Location: ../admin/admin_dashboard.php');
             exit;
         }
     }

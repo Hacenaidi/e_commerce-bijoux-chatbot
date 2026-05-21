@@ -48,7 +48,7 @@ $total = isset($pannier['total_prod']) ? $pannier['total_prod'] : (isset($pannie
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Glowear â€” Update Cart</title>
+    <title>Glowear &mdash; Update Cart</title>
 
     <link rel="shortcut icon" href="../images/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
@@ -173,7 +173,11 @@ $total = isset($pannier['total_prod']) ? $pannier['total_prod'] : (isset($pannie
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<?php include_once(__DIR__ . '/../inc/search_overlay.php'); ?>
+<div class="search-ov" id="searchOv">
+    <i class="fa fa-times search-ov-close" id="searchClose"></i>
+    <input type="text" placeholder="Search bijoux...">
+    <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
+</div>
 
 <!-- Side Cart -->
 <div class="cart-overlay" id="cartOv" onclick="toggleCart()"></div>
@@ -210,9 +214,9 @@ $total = isset($pannier['total_prod']) ? $pannier['total_prod'] : (isset($pannie
 <!-- Ticker -->
 <div class="ticker">
     <div class="ticker-inner">
-        <span>âœ¦ Handmade with love</span><span>âœ¦ Elegant bijoux</span>
-        <span>âœ¦ Limited pieces</span><span>âœ¦ Discover your sparkle</span>
-        <span>âœ¦ Glowear exclusive</span><span>âœ¦ Small details, big elegance</span>
+        <span>&mdash;Handmade with love&mdash;</span><span>&mdash;Elegant bijoux&mdash;</span>
+        <span>&mdash;Limited pieces&mdash;</span><span>&mdash;Discover your sparkle&mdash;</span>
+        <span>&mdash;Glowear exclusive&mdash;</span><span>&mdash;Small details, big elegance&mdash;</span>
     </div>
 </div>
 
@@ -266,9 +270,9 @@ $total = isset($pannier['total_prod']) ? $pannier['total_prod'] : (isset($pannie
     </div>
     <div class="hero-breadcrumb">
         <a href="../public/index.php">Home</a>
-        <span class="sep">âœ¦</span>
+        <span class="sep">&mdash;</span>
         <a href="../public/cart.php">Cart</a>
-        <span class="sep">âœ¦</span>
+        <span class="sep">&mdash;</span>
         <span>Update</span>
     </div>
 </section>

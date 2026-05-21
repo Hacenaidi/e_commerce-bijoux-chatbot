@@ -1,7 +1,7 @@
 ﻿<?php
-include_once('../../controller/AdminController.php');
+include_once(__DIR__ . '/../../controller/AdminController.php');
 session_start();
-require_once('../../controller/SessionController.php');
+require_once(__DIR__ . '/../../controller/SessionController.php');
 $sessionController = new SessionController();
 $sessionController->redirectIfAdmin();
 $mail = isset($_POST['email']) ? $_POST['email'] : '';
@@ -14,13 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 $res = $ac->authenticateAdmin($mail, $password);
-if ($res->rowCount() == 1) {
-    $l = $res->fetch();
-    $_SESSION['id_admin'] = $l[0];
-    $_SESSION['nom'] = $l[1];
-    $_SESSION['prenom'] = $l[2];
-    $_SESSION['email'] = $l[3];
-    $_SESSION['mot_de_passe'] = $l[4];
+if ($res) {
+    $_SESSION['id_admin'] = $res['id'] ?? null;
+    $_SESSION['nom'] = $res['nom'] ?? '';
+    $_SESSION['prenom'] = $res['prenom'] ?? '';
+    $_SESSION['email'] = $res['email'] ?? '';
     $_SESSION['admin'] = true;
 
     header("Location: ./admin_dashboard.php");

@@ -1,7 +1,7 @@
 ﻿<?php
 session_start();
 header('Content-Type: application/json; charset=utf-8');
-require_once __DIR__ . '../../controller/ClientController.php';
+require_once __DIR__ . '/../../controller/ClientController.php';
 
 if (!isset($_SESSION['id'])) {
     echo json_encode(['error' => 'Not authenticated']);

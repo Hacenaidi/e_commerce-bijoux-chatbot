@@ -17,7 +17,6 @@ class AdressController extends Connexion{
         $accrediation = $a->getAccrediation();
         $zip = $a->getZip();
         $id_client = $a->getId_client();
-        //print all the variables seperated by a | to check if they are correct
 
         $query = "INSERT INTO address (`first_name`, `last_name`, `email`, `adress`, `telephone`, `mandate`, `accrediation`, `zip`, `id_client`) VALUES ('$first_name', '$last_name', '$email', '$adress', '$telephone', '$mandate', '$accrediation', '$zip', $id_client)";
         $res = $this->pdo->prepare($query);

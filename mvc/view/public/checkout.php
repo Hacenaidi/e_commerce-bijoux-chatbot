@@ -184,11 +184,11 @@ $lp_badge = $controllerpannier->listpannier($id);
     </div>
 </div>
 
-<!-- â•â• MAIN CONTENT â•â• -->
+<!--  MAIN CONTENT  -->
 <div class="checkout-wrap">
 
     <?php
-    /* â”€â”€ Re-fetch list for order display (the first fetch was for the badge) */
+    /*  Re-fetch list for order display (the first fetch was for the badge) */
     $listpannier2 = $controllerpannier->listpannier($id);
     $total = 0;
     $cart_items = [];
@@ -201,7 +201,7 @@ $lp_badge = $controllerpannier->listpannier($id);
     ?>
 
     <?php if (!isset($_SESSION['id'])): ?>
-    <!-- â”€â”€ AUTH PANELS (not logged in) -->
+    <!--  AUTH PANELS (not logged in) -->
     <div class="auth-row">
         <div class="auth-panel" id="authPanel1">
             <span class="auth-panel-num">01</span>
@@ -260,7 +260,7 @@ $lp_badge = $controllerpannier->listpannier($id);
     <?php endif; ?>
 
     <?php if (isset($_SESSION['id']) && $total > 0): ?>
-    <!-- â”€â”€ CHECKOUT FORM (logged in + has items) -->
+    <!--  CHECKOUT FORM (logged in + has items) -->
     <form action="../actions/placeOrder.php" method="post">
         <input type="hidden" name="total" value="<?php echo $total ?>">
 
@@ -364,7 +364,7 @@ $lp_badge = $controllerpannier->listpannier($id);
     </form>
 
     <?php else: ?>
-    <!-- â”€â”€ EMPTY / NOT LOGGED IN WITH ITEMS -->
+    <!--  EMPTY / NOT LOGGED IN WITH ITEMS -->
     <div class="empty-state rev">
         <span class="empty-icon"><i class="fas fa-gem"></i></span>
         <h2 class="empty-title">Your cart is empty</h2>
@@ -440,7 +440,7 @@ $lp_badge = $controllerpannier->listpannier($id);
 
 
 <script>
-// â”€â”€ SMOOTH CURSOR
+//  SMOOTH CURSOR
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -457,14 +457,14 @@ document.querySelectorAll('a, button, input, .order-item, .auth-panel').forEach(
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-// â”€â”€ STICKY NAV
+//  STICKY NAV
 window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
     const btt = document.getElementById('btt');
     btt.style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-// â”€â”€ SCROLL REVEAL
+//  SCROLL REVEAL
 const revEls = document.querySelectorAll('.rev, .auth-panel, .billing-panel, .order-panel');
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -473,7 +473,7 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
 revEls.forEach(r => obs.observe(r));
 
-// â”€â”€ SEARCH
+//  SEARCH
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     document.getElementById('searchOv').classList.add('open');
@@ -486,13 +486,13 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') document.getElementById('searchOv').classList.remove('open');
 });
 
-// â”€â”€ CART
+//  CART
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');
 }
 
-// â”€â”€ AUTH FORM TOGGLE
+//  AUTH FORM TOGGLE
 function toggleAuthForm(id, btn) {
     const form = document.getElementById(id);
     const isOpen = form.classList.contains('open');
@@ -505,7 +505,7 @@ function toggleAuthForm(id, btn) {
     }
 }
 
-// â”€â”€ BACK TO TOP
+//  BACK TO TOP
 document.getElementById('btt').addEventListener('click', e => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });

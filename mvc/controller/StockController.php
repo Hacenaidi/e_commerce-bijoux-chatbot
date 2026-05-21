@@ -6,44 +6,30 @@ function __construct() {
 parent::__construct();
 }
 
-private function getRefColumn() {
-	$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'stock' AND COLUMN_NAME = 'ref_produit'";
-	$res = $this->pdo->prepare($query);
-	$res->execute();
 
-	if ((int) $res->fetchColumn() > 0) {
-		return 'ref_produit';
-	}
-
-	return 'ref';
-}
 
 public function listStockByRef($ref) {
-	$refColumn = $this->getRefColumn();
-	$query = "SELECT * FROM stock WHERE `" . $refColumn . "` = ? ORDER BY id DESC";
+	$query = "SELECT * FROM stock WHERE ref = ? ORDER BY id DESC";
 	$res = $this->pdo->prepare($query);
 	$res->execute(array($ref));
 	return $res;
 }
 
 public function getStockRow($ref, $taille) {
-	$refColumn = $this->getRefColumn();
-	$query = "SELECT * FROM stock WHERE `" . $refColumn . "` = ? AND taille = ? LIMIT 1";
+	$query = "SELECT * FROM stock WHERE ref = ? AND taille = ? LIMIT 1";
 	$res = $this->pdo->prepare($query);
 	$res->execute(array($ref, $taille));
 	return $res->fetch();
 }
 
 public function getTotalStockByRef($ref) {
-	$refColumn = $this->getRefColumn();
-	$query = "SELECT COALESCE(SUM(quantite), 0) FROM stock WHERE `" . $refColumn . "` = ?";
+	$query = "SELECT COALESCE(SUM(quantite), 0) FROM stock WHERE ref = ?";
 	$res = $this->pdo->prepare($query);
 	$res->execute(array($ref));
 	return (int) $res->fetchColumn();
 }
 
 public function upsertStock($ref, $taille, $quantite) {
-	$refColumn = $this->getRefColumn();
 	$existing = $this->getStockRow($ref, $taille);
 
 	if ($existing) {
@@ -53,7 +39,7 @@ public function upsertStock($ref, $taille, $quantite) {
 		return $res;
 	}
 
-	$query = "INSERT INTO stock (`" . $refColumn . "`, `taille`, `quantite`) VALUES (?, ?, ?)";
+	$query = "INSERT INTO stock (ref, `taille`, `quantite`) VALUES (?, ?, ?)";
 	$res = $this->pdo->prepare($query);
 	$res->execute(array($ref, $taille, $quantite));
 	return $res;
@@ -84,8 +70,7 @@ public function decreaseStock($ref, $taille, $quantity) {
 		return $res;
 	}
 
-	$refColumn = $this->getRefColumn();
-	$query = "SELECT * FROM stock WHERE `" . $refColumn . "` = ? ORDER BY quantite DESC LIMIT 1";
+	$query = "SELECT * FROM stock WHERE ref = ? ORDER BY quantite DESC LIMIT 1";
 	$res = $this->pdo->prepare($query);
 	$res->execute(array($ref));
 	$fallbackRow = $res->fetch();

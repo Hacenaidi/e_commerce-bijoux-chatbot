@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Glowear â€” Register</title>
+    <title>Glowear &mdash; Register</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/chatbot-widget.css?v=20260517.2">
@@ -47,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="ticker">
         <div class="ticker-inner">
-            <span>âœ¦ Handmade with love</span><span>âœ¦ Elegant bijoux ðŸ’–</span>
-            <span>âœ¦ Limited pieces ðŸ’Ž</span><span>âœ¦ Discover your sparkle ðŸŒ¸</span>
-            <span>âœ¦ Glowear exclusive âœ¨</span><span>âœ¦ Wear your glow ðŸŒ™</span>
+            <span>&mdash; Handmade with love&mdash;</span><span>&mdash; Elegant bijoux &mdash;</span>
+            <span>&mdash; Limited pieces &mdash;</span><span>&mdash; Discover your sparkle &mdash;</span>
+            <span>&mdash; Glowear exclusive &mdash;</span><span>&mdash; Wear your glow &mdash;</span>
         </div>
     </div>
 

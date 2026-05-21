@@ -71,7 +71,11 @@ if ($id) {
 @media(max-width:768px) { .left-icons { display:none; } }
 </style>
 
-<?php include_once(__DIR__ . '/../inc/search_overlay.php'); ?>
+<div class="search-ov" id="searchOv">
+    <i class="fa fa-times search-ov-close" id="searchClose"></i>
+    <input type="text" placeholder="Search bijoux...">
+    <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
+</div>
 
 <!-- Side Cart -->
 <div class="cart-overlay" id="cartOv" onclick="toggleCart()"></div>
@@ -105,8 +109,6 @@ if ($id) {
     <a href="../public/checkout.php" class="btn-ghost" style="display:block;text-align:center">Checkout</a>
 </div>
 
-<!-- Nav (copied from my-account) -->
-<?php // minimal nav copy ?>
 <nav class="nav-wrap" id="nav">
     <div class="nav-logo"><a href="../public/index.php"><img src="../images/logo.png" alt="Glowear"></a></div>
     <ul class="nav-links">
@@ -240,7 +242,6 @@ if ($id) {
 </div>
 
 <script>
-// â”€â”€â”€â”€â”€â”€ OPEN ORDER MODAL & LOAD DETAILS VIA AJAX
 document.addEventListener('click', function (e) {
     const card = e.target.closest('.order-card-item');
     if (card) {
@@ -276,7 +277,7 @@ function loadOrderDetails(orderId) {
             
             // Build items HTML
             const itemsHtml = items.map(item => {
-                const img = item.product_image || 'images/placeholder.png';
+                const img = item.product_image || '../images/placeholder.png';
                 return `<div class="od-item" style="display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);">
                     <img src="${img}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;" alt="${item.product_name}">
                     <div style="flex:1;">
@@ -331,7 +332,7 @@ function cancelOrderNow() {
     
     // Use a themed confirm modal if available
     function doCancel() {
-        fetch('ajax_cancel_order.php', {
+        fetch('../actions/ajax_cancel_order.php', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: 'order_id=' + encodeURIComponent(orderId)
@@ -450,7 +451,6 @@ function toggleCart(){
 <script src="../js/confirm-modal.v9.js"></script>
 
 <script>
-// Ã¢â€â‚¬Ã¢â€â‚¬ SMOOTH CURSOR
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth / 2, my = window.innerHeight / 2;
@@ -468,14 +468,14 @@ document.querySelectorAll('a, button, .account-card, .insta-item').forEach(el =>
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ STICKY NAV
+
 window.addEventListener('scroll', () => {
     const nav = document.getElementById('nav');
     if(nav) nav.classList.toggle('stuck', window.scrollY > 60);
     const btt = document.getElementById('btt'); if(btt) btt.style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-// Ã¢â€â‚¬Ã¢â€â‚¬ SCROLL REVEAL
+
 const allRev = document.querySelectorAll(
     '.rev, .account-card, .welcome-strip, .guest-banner'
 );
@@ -486,7 +486,6 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
 allRev.forEach(r => obs.observe(r));
 
-// â”€â”€â”€â”€â”€â”€ SEARCH
 const searchBtn = document.getElementById('searchBtn');
 if(searchBtn){ searchBtn.addEventListener('click', e => { e.preventDefault(); const ov = document.getElementById('searchOv'); if(ov) ov.style.display='block'; }); }
 const searchBtnSide = document.getElementById('searchBtnSide');

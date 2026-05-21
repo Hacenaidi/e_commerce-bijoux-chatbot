@@ -333,7 +333,6 @@ $controller = new ProduitController();
 <?php endif; ?>
 
 <script>
-// â”€â”€ CURSOR
 const cur = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
@@ -349,20 +348,20 @@ document.querySelectorAll('a,button,.team-card,.insta-item,.pillar').forEach(el=
     el.addEventListener('mouseleave',()=>document.body.classList.remove('big-cur'));
 });
 
-// â”€â”€ NAV STICK + BACK TO TOP
+// NAV STICK + BACK TO TOP
 window.addEventListener('scroll',()=>{
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
     document.getElementById('btt').style.display = window.scrollY > 320 ? 'block' : 'none';
 });
 
-// â”€â”€ SCROLL REVEAL
+// SCROLL REVEAL
 const revEls = document.querySelectorAll('.rev');
 const obs = new IntersectionObserver(entries=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 },{ threshold:.1, rootMargin:'0px 0px -50px 0px' });
 revEls.forEach(r=>obs.observe(r));
 
-// â”€â”€ SEARCH
+// SEARCH
 document.getElementById('searchBtn').addEventListener('click',e=>{
     e.preventDefault();
     document.getElementById('searchOv').classList.add('open');
@@ -371,7 +370,7 @@ document.getElementById('searchBtn').addEventListener('click',e=>{
 document.getElementById('searchClose').addEventListener('click',()=>document.getElementById('searchOv').classList.remove('open'));
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.getElementById('searchOv').classList.remove('open'); });
 
-// â”€â”€ CART
+// CART
 function toggleCart(){
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');

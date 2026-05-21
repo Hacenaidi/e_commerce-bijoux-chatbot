@@ -210,7 +210,7 @@ $controller = new ProduitController();
         <div class="info-deco-num">G</div>
     </div>
 
-    <!-- RIGHT â€” FORM COLUMN -->
+    <!-- RIGHT  FORM COLUMN -->
     <div class="form-col rev d1">
         <div class="form-header">
             <span class="sec-label">Send a Message</span>
@@ -263,7 +263,7 @@ $controller = new ProduitController();
     </div>
 </div>
 
-<!--  AMBIENT STRIP â”€ -->
+<!--  AMBIENT STRIP -->
 <div class="ambient-strip">
     <div class="adot" style="width:3px;height:3px;left:10%;bottom:20%;animation-delay:0s;animation-duration:8s"></div>
     <div class="adot" style="width:2px;height:2px;left:45%;bottom:40%;animation-delay:2s;animation-duration:6s"></div>

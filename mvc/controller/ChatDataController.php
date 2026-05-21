@@ -37,17 +37,7 @@ class ChatDataController extends Connexion {
             $src = $dataDir . '/' . $f;
             if (file_exists($src)) copy($src, $backupDir . '/' . $f);
         }
-
-        // Build lulu_collection: one product per block with description, prix and other characteristics
-        // Note: Produit model doesn't include marque, only collection_id
-        $hasCollection = $this->hasProduitColumn('collection_id');
-        
-        if ($hasCollection) {
-            // use id_collection as canonical column name (older code uses both variants)
-            $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description, c.nom AS collection_nom, p.image FROM produit p LEFT JOIN collection c ON p.id_collection = c.id ORDER BY p.nom ASC";
-        } else {
-            $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description,p.image FROM produit p ORDER BY p.nom ASC";
-        }
+        $query = "SELECT p.ref,p.nom,p.couleur,p.prix,p.description, c.nom AS collection_nom, p.image FROM produit p LEFT JOIN collection c ON p.id_collection = c.id ORDER BY p.nom ASC";
         
         $productsStmt = $this->pdo->prepare($query);
         $productsStmt->execute();

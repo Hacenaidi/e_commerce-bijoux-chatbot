@@ -50,29 +50,20 @@ function getAllnom()
 
 
 public function listAllProduits() {
-    $collectionColumn = $this->getProduitCollectionColumn();
-    if ($collectionColumn) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
-    } else {
-        $query = "SELECT p.* FROM produit p";
-    }
+  
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
     $res = $this->pdo->prepare($query);
     $res->execute();
     return $res;
 }
 
 function listproduit($collectionId = "", $collectionFilter = "") {
-    // $collectionId is the collection's id (e.g., 2 for "Necklaces")
-    $collectionColumn = $this->getProduitCollectionColumn();
-    if ($collectionColumn) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
-    } else {
-        $query = "SELECT p.* FROM produit p";
-    }
+    
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
     $params = array();
 
     if ($collectionId !== "" && $collectionColumn) {
-        $query .= " WHERE p." . $collectionColumn . " = ?";
+        $query .= " WHERE p.id_collection = ?";
         $params[] = $collectionId;
     }
 
@@ -84,16 +75,12 @@ function listproduit($collectionId = "", $collectionFilter = "") {
 }
 
 function listproduitparprix($min, $max, $collectionId = "") {
-    $collectionColumn = $this->getProduitCollectionColumn();
-    if ($collectionColumn) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id WHERE p.prix BETWEEN ? AND ?";
-    } else {
-        $query = "SELECT p.* FROM produit p WHERE p.prix BETWEEN ? AND ?";
-    }
+   
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.prix BETWEEN ? AND ?";
     $params = array($min, $max);
 
     if ($collectionId !== "" && $collectionColumn) {
-        $query .= " AND p." . $collectionColumn . " = ?";
+        $query .= " AND p.id_collection = ?";
         $params[] = $collectionId;
     }
 
@@ -103,12 +90,8 @@ function listproduitparprix($min, $max, $collectionId = "") {
 }
 
 function produit($id){
-    $collectionColumn = $this->getProduitCollectionColumn();
-    if ($collectionColumn) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id WHERE p.ref = ?";
-    } else {
-        $query = "SELECT p.* FROM produit p WHERE p.ref = ?";
-    }
+   
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.ref = ?";
     $res = $this->pdo->prepare($query);
     $res->execute(array($id));
     return $res; 
@@ -121,12 +104,8 @@ public function produitByName($name) {
     return $res->fetch(PDO::FETCH_ASSOC);
 }
 function listAllProduit(){
-    $collectionColumn = $this->getProduitCollectionColumn();
-    if ($collectionColumn) {
-        $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p." . $collectionColumn . " = c.id";
-    } else {
-        $query = "SELECT p.* FROM produit p";
-    }
+   
+    $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
     $res = $this->pdo->prepare($query);
     $res->execute();
     return $res; 
@@ -140,16 +119,9 @@ function createProduit(Produit $produit, $stockTaille = null, $stockQuantite = n
         $image = $produit->getImage();
         $collectionId = $produit->getCollection();
 
-        $collectionColumn = $this->getProduitCollectionColumn();
-        if ($collectionColumn) {
-            $query = "INSERT INTO produit (`nom`, `couleur`, `prix`, `description`, `status`, `image`, `" . $collectionColumn . "`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($nom, $couleur, $prix, $description, $status, $image, $collectionId !== '' ? $collectionId : null));
-        } else {
-            $query = "INSERT INTO produit (`nom`, `couleur`, `prix`, `description`, `status`, `image`) VALUES (?, ?, ?, ?, ?, ?)";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($nom, $couleur, $prix, $description, $status, $image));
-        }
+        $query = "INSERT INTO produit (`nom`, `couleur`, `prix`, `description`, `status`, `image`, `id_collection`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $res = $this->pdo->prepare($query);
+        $res->execute(array($nom, $couleur, $prix, $description, $status, $image, $collectionId !== '' ? $collectionId : null));
 
         $lastId = $this->pdo->lastInsertId();
         // handle stock creation if provided
@@ -180,16 +152,10 @@ function createProduit(Produit $produit, $stockTaille = null, $stockQuantite = n
         $id = $produit->getRef();
         $collectionId = $produit->getCollection();
         
-        $collectionColumn = $this->getProduitCollectionColumn();
-        if ($collectionColumn) {
-            $query = "UPDATE produit SET nom = ?, prix = ?, couleur = ?, description = ?, status = ?, `" . $collectionColumn . "` = ? WHERE ref = ?";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($nom, $prix, $couleur, $description, $status, $collectionId !== '' ? $collectionId : null, $id));
-        } else {
-            $query = "UPDATE produit SET nom = ?, prix = ?, couleur = ?, description = ?, status = ? WHERE ref = ?";
-            $res = $this->pdo->prepare($query);
-            $res->execute(array($nom, $prix, $couleur, $description, $status, $id));
-        }
+        
+        $query = "UPDATE produit SET nom = ?, prix = ?, couleur = ?, description = ?, status = ?, `id_collection` = ? WHERE ref = ?";
+        $res = $this->pdo->prepare($query);
+        $res->execute(array($nom, $prix, $couleur, $description, $status, $collectionId !== '' ? $collectionId : null, $id));
 
         // handle stock update if provided
         if ($stockTaille !== null && $stockQuantite !== null) {

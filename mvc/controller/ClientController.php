@@ -7,10 +7,15 @@ parent::__construct();
 }
 
 function authenticateClient($mail, $password) {
-    $query = "SELECT * FROM client WHERE email = ? AND mot_de_passe = ?";
+    // Fetch user by email and verify hashed password
+    $query = "SELECT * FROM client WHERE email = ? LIMIT 1";
     $res = $this->pdo->prepare($query);
-    $res->execute(array($mail, $password));
-    return $res;
+    $res->execute(array($mail));
+    $row = $res->fetch(PDO::FETCH_ASSOC);
+    if ($row && isset($row['mot_de_passe']) && password_verify($password, $row['mot_de_passe'])) {
+        return $row; // return associative user row on success
+    }
+    return false;
 }
 
 public function findByEmail($email) {
@@ -52,22 +57,19 @@ function changePassword($clientId, $currentPassword, $newPassword) {
     if (!$row) return ['success' => false, 'error' => 'User not found'];
 
     $existing = $row['mot_de_passe'];
-    if ($existing !== $currentPassword) {
+    if (!password_verify($currentPassword, $existing)) {
         return ['success' => false, 'error' => 'Current password is incorrect'];
     }
 
-    // Update password
+    // Update password (store hashed)
+    $hashed = password_hash($newPassword, PASSWORD_DEFAULT);
     $update = "UPDATE client SET mot_de_passe = ? WHERE id = ?";
     $u = $this->pdo->prepare($update);
-    $ok = $u->execute(array($newPassword, $clientId));
+    $ok = $u->execute(array($hashed, $clientId));
     return ['success' => (bool)$ok];
 }
 
-function rechercheClient(Client $client ){
-    $mail = $client->getEmail();
-    $password = $client->getMotDePasse();
-    return $this->authenticateClient($mail, $password);
-    }
+
 function rechercheClientParNom($nom){
     $query = "select * from client WHERE nom like '%$nom%'";
     $res=$this->pdo->prepare($query);
@@ -80,13 +82,11 @@ function rechercheClientParNom($nom){
 function createClient(Client $client) {
         $nom = $client->getNom();
         $prenom = $client->getPrenom();
-        $mot_de_passe = $client->getMotDePasse();
+    $mot_de_passe = password_hash($client->getMotDePasse(), PASSWORD_DEFAULT);
         $email = $client->getEmail();
-
-
-        $query = "INSERT INTO client (`nom`, `prenom`, `mot_de_passe`, `email`) VALUES ('$nom', '$prenom',  '$mot_de_passe', '$email')";
-        $res = $this->pdo->prepare($query);
-        $res->execute();
+    $query = "INSERT INTO client (`nom`, `prenom`, `mot_de_passe`, `email`) VALUES (?, ?, ?, ?)";
+    $res = $this->pdo->prepare($query);
+    $res->execute(array($nom, $prenom, $mot_de_passe, $email));
         return $res; 
     }
 function getClientCount(){

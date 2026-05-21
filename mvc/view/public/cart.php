@@ -64,7 +64,7 @@ function cart_product_image_path($image)
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
-<!-- â”€â”€ SIDE CART PANEL â”€â”€ -->
+<!--  SIDE CART PANEL  -->
 <div class="cart-overlay" id="cartOv" onclick="toggleCart()"></div>
 <div class="side-cart" id="sideCart">
     <div class="sc-head">
@@ -96,14 +96,14 @@ function cart_product_image_path($image)
     <a href="checkout.php" class="btn-ghost" style="display:block;text-align:center">Checkout</a>
 </div>
 
-<!-- â”€â”€ SEARCH OVERLAY â”€â”€ -->
+<!--  SEARCH OVERLAY  -->
 <div id="searchOv" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.96);z-index:3000;flex-direction:column;align-items:center;justify-content:center;">
     <i class="fa fa-times" id="searchClose" style="position:absolute;top:36px;right:56px;font-size:22px;color:rgba(255,255,255,.4);cursor:pointer;"></i>
     <input type="text" placeholder="Search bijoux..." style="background:none;border:none;border-bottom:1px solid rgba(255,255,255,.25);font-family:'Cormorant Garamond',serif;font-size:34px;color:#fff;width:60%;max-width:580px;padding:14px 0;text-align:center;outline:none;">
     <p style="color:rgba(255,255,255,.2);font-size:9px;letter-spacing:4px;text-transform:uppercase;margin-top:20px;">Press Enter</p>
 </div>
 
-<!-- â”€â”€ TICKER â”€â”€ -->
+<!--  TICKER  -->
 <div class="ticker">
     <div class="ticker-inner">
         <span>&bull; Handmade with love</span>
@@ -125,7 +125,7 @@ function cart_product_image_path($image)
     </div>
 </div>
 
-<!-- â”€â”€ NAV â”€â”€ -->
+<!--  NAV  -->
 <nav class="nav-wrap" id="nav">
     <div class="nav-logo"><a href="index.php"><img src="../images/logo.png" alt="Glowear"></a></div>
     <ul class="nav-links">
@@ -166,7 +166,7 @@ function cart_product_image_path($image)
     </div>
 </nav>
 
-<!-- â”€â”€ PAGE HERO â”€â”€ -->
+<!--  PAGE HERO  -->
 <section class="page-hero">
     <div class="page-hero-bg"></div>
     <div class="page-hero-lines"></div>
@@ -186,15 +186,15 @@ function cart_product_image_path($image)
     </div>
 </section>
 
-<!-- â”€â”€ CART SECTION â”€â”€ -->
+<!--  CART SECTION  -->
 <div class="cart-section">
     <div class="cart-layout">
 
-        <!-- LEFT â€” ITEMS TABLE -->
+        <!-- LEFT ITEMS TABLE -->
         <div class="rev">
 
             <?php
-            /* â”€â”€ Collect rows & total (original logic) â”€â”€ */
+            /*  Collect rows & total (original logic)  */
             $total = 0;
             $rows   = [];
             while($l = $listpanniercart->fetch()){
@@ -270,7 +270,7 @@ function cart_product_image_path($image)
             <?php endif; ?>
         </div>
 
-        <!-- RIGHT â€” ORDER SUMMARY (original session check preserved) -->
+        <!-- RIGHT  ORDER SUMMARY (original session check preserved) -->
         <?php if(isset($_SESSION['id'])): ?>
         <div class="order-summary rev d1">
             <h2 class="os-title">Order Summary</h2>
@@ -302,7 +302,7 @@ function cart_product_image_path($image)
 </div>
 <!-- End Cart -->
 
-<!-- â”€â”€ MARQUEE â”€â”€ -->
+<!--  MARQUEE  -->
 <div class="marquee-band">
     <div class="marquee-inner">
         <?php for($m=0;$m<2;$m++): ?>
@@ -318,7 +318,7 @@ function cart_product_image_path($image)
     </div>
 </div>
 
-<!-- â”€â”€ INSTAGRAM â”€â”€ -->
+<!--  INSTAGRAM  -->
 <section class="insta-sec">
     <div class="insta-head rev">
         <p class="insta-handle"><i class="fab fa-instagram"></i> @glowear</p>
@@ -337,7 +337,7 @@ function cart_product_image_path($image)
     </div>
 </section>
 
-<!-- â”€â”€ FOOTER â”€â”€ -->
+<!--  FOOTER  -->
 <footer>
     <div class="ft-grid">
         <div>
@@ -395,7 +395,7 @@ function cart_product_image_path($image)
     <script src="../js/chatbot-widget.js?v=20260517.1"></script>
 
 <script>
-/* â”€â”€ GLITTER â”€â”€ */
+/*  GLITTER  */
 function createGlitter() {
     const layer = document.getElementById('glitter-layer');
     if (!layer) return;
@@ -409,7 +409,7 @@ function createGlitter() {
 }
 setInterval(createGlitter, 120);
 
-/* â”€â”€ CURSOR â”€â”€ */
+/*  CURSOR  */
 const cur  = document.getElementById('cur');
 const curR = document.getElementById('cur-ring');
 let mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my;
@@ -425,25 +425,25 @@ document.querySelectorAll('a,button,input,.cart-row,.insta-item').forEach(el => 
     el.addEventListener('mouseleave', () => document.body.classList.remove('big-cur'));
 });
 
-/* â”€â”€ STICKY NAV + BACK TO TOP â”€â”€ */
+/*  STICKY NAV + BACK TO TOP  */
 window.addEventListener('scroll', () => {
     document.getElementById('nav').classList.toggle('stuck', window.scrollY > 60);
     document.getElementById('btt').style.display = window.scrollY > 400 ? 'block' : 'none';
 });
 
-/* â”€â”€ SCROLL REVEAL â”€â”€ */
+/*  SCROLL REVEAL  */
 const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
 }, { threshold:0.08, rootMargin:'0px 0px -40px 0px' });
 document.querySelectorAll('.rev').forEach(r => obs.observe(r));
 
-/* â”€â”€ CART PANEL â”€â”€ */
+/*  CART PANEL  */
 function toggleCart() {
     document.getElementById('sideCart').classList.toggle('open');
     document.getElementById('cartOv').classList.toggle('open');
 }
 
-/* â”€â”€ SEARCH â”€â”€ */
+/*  SEARCH  */
 document.getElementById('searchBtn').addEventListener('click', e => {
     e.preventDefault();
     const ov = document.getElementById('searchOv');

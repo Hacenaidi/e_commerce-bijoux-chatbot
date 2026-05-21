@@ -148,7 +148,6 @@
     });
 }());
 
-// â"€â"€ DROPDOWN ACTION MENU TOGGLE â"€â"€
 function toggleProductActionMenu(button) {
     var menu = button.getAttribute('aria-controls');
     if (!menu) return;
