@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="auth-field">
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
+                            <input type="password" name="password" id="password" required placeholder="Password">
                         </div>
                     </div>
                     <button type="submit" class="auth-submit">Login</button>

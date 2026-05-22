@@ -200,64 +200,7 @@ $lp_badge = $controllerpannier->listpannier($id);
     
     ?>
 
-    <?php if (!isset($_SESSION['id'])): ?>
-    <!--  AUTH PANELS (not logged in) -->
-    <div class="auth-row">
-        <div class="auth-panel" id="authPanel1">
-            <span class="auth-panel-num">01</span>
-            <span class="auth-label">Returning Customer</span>
-            <h3 class="auth-title">Account Login</h3>
-            <button class="auth-toggle" onclick="toggleAuthForm('formLogin', this)">Sign in to your account</button>
-            <div class="auth-form" id="formLogin">
-                <form action="../auth/client_login.php" method="post">
-                    <div class="field-row">
-                        <div class="gl-field">
-                            <label for="InputEmail">Email Address</label>
-                            <input name="email" type="email" id="InputEmail" placeholder="your@email.com">
-                        </div>
-                        <div class="gl-field">
-                            <label for="InputPassword">Password</label>
-                            <input name="password" type="password" id="InputPassword" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-red">Login</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="auth-panel d1" id="authPanel2">
-            <span class="auth-panel-num">02</span>
-            <span class="auth-label">New Customer</span>
-            <h3 class="auth-title">Create Account</h3>
-            <button class="auth-toggle" onclick="toggleAuthForm('formRegister', this)">Register for free</button>
-            <div class="auth-form" id="formRegister">
-                <form action="client_signup.php" method="post">
-                    <div class="field-row">
-                        <div class="gl-field">
-                            <label for="InputName">First Name</label>
-                            <input name="nom" type="text" id="InputName" placeholder="First name">
-                        </div>
-                        <div class="gl-field">
-                            <label for="InputLastname">Last Name</label>
-                            <input name="prenom" type="text" id="InputLastname" placeholder="Last name">
-                        </div>
-                    </div>
-                    <div class="field-row">
-                        <div class="gl-field">
-                            <label for="InputEmail1">Email Address</label>
-                            <input name="email" type="email" id="InputEmail1" placeholder="your@email.com">
-                        </div>
-                        <div class="gl-field">
-                            <label for="InputPassword1">Password</label>
-                            <input name="password" type="password" id="InputPassword1" placeholder="••••••••">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-red">Create Account</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <?php endif; ?>
+    
 
     <?php if (isset($_SESSION['id']) && $total > 0): ?>
     <!--  CHECKOUT FORM (logged in + has items) -->

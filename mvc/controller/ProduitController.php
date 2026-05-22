@@ -62,7 +62,7 @@ function listproduit($collectionId = "", $collectionFilter = "") {
     $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id";
     $params = array();
 
-    if ($collectionId !== "" && $collectionColumn) {
+    if ($collectionId !== "") {
         $query .= " WHERE p.id_collection = ?";
         $params[] = $collectionId;
     }
@@ -79,7 +79,7 @@ function listproduitparprix($min, $max, $collectionId = "") {
     $query = "SELECT p.*, c.nom AS collection_nom FROM produit p LEFT JOIN collection c ON p.id_collection = c.id WHERE p.prix BETWEEN ? AND ?";
     $params = array($min, $max);
 
-    if ($collectionId !== "" && $collectionColumn) {
+    if ($collectionId !== "") {
         $query .= " AND p.id_collection = ?";
         $params[] = $collectionId;
     }

@@ -282,7 +282,7 @@ function loadOrderDetails(orderId) {
                     <img src="${img}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;" alt="${item.product_name}">
                     <div style="flex:1;">
                         <div style="font-weight:600;">${item.product_name}</div>
-                        <div style="font-size:12px;color:#aaa;">${item.quantity}x @ DT ${item.unit_price}</div>
+                        <div style="font-size:12px;color:#aaa;">${item.quantity}x  DT ${item.unit_price}</div>
                     </div>
                     <div style="font-weight:600;">DT ${item.line_total || item.quantity * item.unit_price}</div>
                 </div>`;

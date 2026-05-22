@@ -362,7 +362,7 @@ if ($ref !== '' && $product) {
 
                 <!-- Add to Cart -->
                 <div class="detail-form">
-                    <form action="addToCart.php" method="POST">
+                    <form action="../actions/addToCart.php" method="POST">
                         <div class="form-row">
                             <div class="form-field">
                                 <label>Size / Length</label>

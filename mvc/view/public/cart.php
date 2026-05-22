@@ -330,7 +330,7 @@ function cart_product_image_path($image)
         $delays    = ['','d1','d2','d3','d4'];
         foreach($instaImgs as $i => $img): ?>
         <div class="insta-item rev <?php echo $delays[$i] ?>">
-            <img src="images/<?php echo $img ?>.png" alt="">
+            <img src="../images/<?php echo $img ?>.png" alt="">
             <div class="insta-ov"><i class="fab fa-instagram"></i></div>
         </div>
         <?php endforeach; ?>

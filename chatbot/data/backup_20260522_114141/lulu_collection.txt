@@ -22,9 +22,3 @@ Color: gold
 Price: 70.000
 Description: Gold chain necklace with ocean-themed charms: suns, crab, shells, and pink ceramic beads
 ---
-Product: tets
-Category: Rings
-Color: white
-Price: 1500.000
-Description: Men jacket
----

@@ -1,7 +1,8 @@
 ﻿<?php
 session_start();
 header('Content-Type: application/json; charset=utf-8');
-require_once __DIR__ . '../../controller/OrderController.php';
+// Correct relative path to controller (was missing a slash and failing to include)
+require_once __DIR__ . '/../../controller/OrderController.php';
 
 if (!isset($_SESSION['id'])) {
     echo json_encode(['error' => 'Not authenticated']);
